@@ -1,0 +1,11 @@
+CRITICAL - 2025-02-26 23:47:43 --> ErrorException: Undefined array key "cidades_nome"
+[Method: GET, Route: cidades/create]
+in APPPATH/Controllers/Cidades.php on line 40.
+ 1 APPPATH/Controllers/Cidades.php(40): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Cidades->create()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/var/www/html/codeigniter4/public/index.php')

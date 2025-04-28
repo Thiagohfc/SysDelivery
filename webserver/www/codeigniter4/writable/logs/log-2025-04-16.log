@@ -1,0 +1,893 @@
+ERROR - 2025-04-16 10:45:46 --> Error connecting to the database: mysqli_sql_exception: Connection refused in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Cidades.php(22): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Cidades->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Connection refused in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Cidades.php(22): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Cidades->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:45:46 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+[Method: GET, Route: cidades]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Cidades.php(22): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Cidades->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 10:45:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-04-16 10:46:03 --> Error connecting to the database: mysqli_sql_exception: Connection refused in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Connection refused in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:46:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 10:46:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-04-16 10:49:05 --> Error connecting to the database: mysqli_sql_exception: Connection refused in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Connection refused in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:49:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+ERROR - 2025-04-16 10:49:58 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:49:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+ERROR - 2025-04-16 10:50:14 --> Error connecting to the database: ErrorException: mysqli::real_connect(): php_network_getaddresses: getaddrinfo for mysql failed: Temporary failure in name resolution in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#14 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next mysqli_sql_exception: php_network_getaddresses: getaddrinfo for mysql failed: Temporary failure in name resolution in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: php_network_getaddresses: getaddrinfo for mysql failed: Temporary failure in name resolution in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:50:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: php_network_getaddresses: getaddrinfo for mysql failed: Temporary failure in name resolution
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+ERROR - 2025-04-16 10:51:06 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:51:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+ERROR - 2025-04-16 10:51:21 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:51:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+ERROR - 2025-04-16 10:51:23 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:51:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+ERROR - 2025-04-16 10:51:42 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'aluno'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:51:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+ERROR - 2025-04-16 10:52:25 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'aluno'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:202
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php(202): mysqli->real_connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/MySQLi/Connection.php:246
+Stack trace:
+#0 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /media/vilson/Dados_29/webserver/www/codeigniter4/system/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+#5 /media/vilson/Dados_29/webserver/www/codeigniter4/app/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+#6 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+#7 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /media/vilson/Dados_29/webserver/www/codeigniter4/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /media/vilson/Dados_29/webserver/www/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /media/vilson/Dados_29/webserver/www/codeigniter4/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-04-16 10:52:25 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: usuarios]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(675): CodeIgniter\Model->doFindAll()
+ 5 APPPATH/Controllers/Usuarios.php(17): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 10:52:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 10:52:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 10:53:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:02:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:03:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:07:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:07:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:12:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:13:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:14:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:14:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:14:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:14:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:16:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:16:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:16:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:17:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:17:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:21:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 11:22:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 11:22:51 --> ErrorException: include(Templates/header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in APPPATH/Views/Templates.php on line 2.
+ 1 APPPATH/Views/Templates.php(2): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Views/Templates.php(2): include()
+ 3 SYSTEMPATH/View/View.php(224): include('/media/vilson/Dados_29/webserver/www/codeigniter4/app/Views/Templates.php')
+ 4 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH/View/View.php(240): CodeIgniter\View\View->render()
+ 6 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 7 APPPATH/Controllers/Home.php(11): view()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 11:23:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 11:51:03 --> ErrorException: include(Templates/header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in APPPATH/Views/index.php on line 2.
+ 1 APPPATH/Views/index.php(2): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Views/index.php(2): include()
+ 3 SYSTEMPATH/View/View.php(224): include('/media/vilson/Dados_29/webserver/www/codeigniter4/app/Views/index.php')
+ 4 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 6 APPPATH/Controllers/Home.php(11): view()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+CRITICAL - 2025-04-16 11:51:03 --> ErrorException: include(Templates/header.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in APPPATH/Views/index.php on line 2.
+ 1 APPPATH/Views/index.php(2): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Views/index.php(2): include()
+ 3 SYSTEMPATH/View/View.php(224): include('/media/vilson/Dados_29/webserver/www/codeigniter4/app/Views/index.php')
+ 4 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 6 APPPATH/Controllers/Home.php(11): view()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+CRITICAL - 2025-04-16 11:52:07 --> ErrorException: include(templates/sobre.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in APPPATH/Views/index.php on line 5.
+ 1 APPPATH/Views/index.php(5): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Views/index.php(5): include()
+ 3 SYSTEMPATH/View/View.php(224): include('/media/vilson/Dados_29/webserver/www/codeigniter4/app/Views/index.php')
+ 4 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 6 APPPATH/Controllers/Home.php(11): view()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 11:58:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 13:21:01 --> ParseError: Unclosed '{' on line 11
+[Method: GET, Route: /]
+in APPPATH/Views/templates/produtos.php on line 35.
+ 1 SYSTEMPATH/View/View.php(224): include()
+ 2 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 4 APPPATH/Controllers/Home.php(11): view()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+CRITICAL - 2025-04-16 13:29:18 --> ErrorException: Undefined variable $itemPage
+[Method: GET, Route: /]
+in APPPATH/Views/templates/produtos.php on line 34.
+ 1 APPPATH/Views/templates/produtos.php(34): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Views/index.php(4): include('/media/vilson/Dados_29/webserver/www/codeigniter4/app/Views/templates/produtos.php')
+ 3 SYSTEMPATH/View/View.php(224): include('/media/vilson/Dados_29/webserver/www/codeigniter4/app/Views/index.php')
+ 4 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 6 APPPATH/Controllers/Home.php(11): view()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+CRITICAL - 2025-04-16 13:57:38 --> ErrorException: Undefined variable $data
+[Method: GET, Route: /]
+in APPPATH/Controllers/Home.php on line 11.
+ 1 APPPATH/Controllers/Home.php(11): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 13:58:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 13:58:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "templates.php"
+[Method: GET, Route: /]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/View/View.php(240): CodeIgniter\View\View->render()
+ 3 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 4 APPPATH/Controllers/Home.php(11): view()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Home->index()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 13:59:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:01:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:03:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:05:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:07:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:15:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:17:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:17:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:19:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:19:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:20:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:21:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:22:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:23:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 14:24:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:22:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:27:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:29:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:30:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:31:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:33:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:34:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:34:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:34:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:43:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:43:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:46:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:46:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:48:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:51:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:52:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:54:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:54:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 15:54:36 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "home.php"
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 3 APPPATH/Controllers/Login.php(70): view()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 15:55:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:55:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:55:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:56:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:56:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:56:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:56:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 15:56:26 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "/.php"
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 3 APPPATH/Controllers/Login.php(70): view()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 15:58:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:58:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:58:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 15:58:19 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "home.php"
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 3 APPPATH/Controllers/Login.php(70): view()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 15:59:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:59:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 15:59:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 15:59:27 --> CodeIgniter\HTTP\Exceptions\HTTPException: The route for "http://localhost:8080/home" cannot be found.
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/HTTP/RedirectResponse.php on line 63.
+ 1 SYSTEMPATH/HTTP/RedirectResponse.php(63): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute()
+ 2 SYSTEMPATH/Common.php(855): CodeIgniter\HTTP\RedirectResponse->route()
+ 3 APPPATH/Controllers/Login.php(71): redirect()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 15:59:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:00:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:00:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 16:00:06 --> CodeIgniter\HTTP\Exceptions\HTTPException: The route for "http://localhost:8080/" cannot be found.
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/HTTP/RedirectResponse.php on line 63.
+ 1 SYSTEMPATH/HTTP/RedirectResponse.php(63): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute()
+ 2 SYSTEMPATH/Common.php(855): CodeIgniter\HTTP\RedirectResponse->route()
+ 3 APPPATH/Controllers/Login.php(71): redirect()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 16:00:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:00:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 16:00:30 --> CodeIgniter\HTTP\Exceptions\HTTPException: The route for "http://localhost:8080/" cannot be found.
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/HTTP/RedirectResponse.php on line 63.
+ 1 SYSTEMPATH/HTTP/RedirectResponse.php(63): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute()
+ 2 SYSTEMPATH/Common.php(855): CodeIgniter\HTTP\RedirectResponse->route()
+ 3 APPPATH/Controllers/Login.php(71): redirect()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 16:00:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:00:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:00:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:00:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 16:00:44 --> CodeIgniter\HTTP\Exceptions\HTTPException: The route for "http://localhost:8080/" cannot be found.
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/HTTP/RedirectResponse.php on line 63.
+ 1 SYSTEMPATH/HTTP/RedirectResponse.php(63): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute()
+ 2 SYSTEMPATH/Common.php(855): CodeIgniter\HTTP\RedirectResponse->route()
+ 3 APPPATH/Controllers/Login.php(71): redirect()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 16:01:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:01:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:01:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:01:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:01:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 16:01:53 --> CodeIgniter\HTTP\Exceptions\HTTPException: The route for "http://localhost:8080/home" cannot be found.
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/HTTP/RedirectResponse.php on line 63.
+ 1 SYSTEMPATH/HTTP/RedirectResponse.php(63): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidRedirectRoute()
+ 2 SYSTEMPATH/Common.php(855): CodeIgniter\HTTP\RedirectResponse->route()
+ 3 APPPATH/Controllers/Login.php(71): redirect()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 16:02:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:05:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:05:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:05:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:05:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:07:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:07:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:07:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:07:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:13:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:13:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:13:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:13:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:18:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:18:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:18:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:18:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:19:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:19:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:19:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:19:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:20:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:20:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:20:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-04-16 16:20:42 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "home.php"
+[Method: GET, Route: login/logout]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 3 APPPATH/Controllers/Login.php(74): view()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Login->logout()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/media/vilson/Dados_29/webserver/www/codeigniter4/public/index.php')
+DEBUG - 2025-04-16 16:20:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:21:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:21:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:21:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:22:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:22:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:23:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:24:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:24:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:25:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:32:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:33:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:33:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:33:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:34:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:34:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:34:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:35:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:37:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:37:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:39:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:39:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 16:39:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 19:37:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
