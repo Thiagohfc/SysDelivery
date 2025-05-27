@@ -22,7 +22,6 @@ class Enderecos extends Model
         'enderecos_usuario_id'
     ];
 
-    // Datas (caso queira usar depois)
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
