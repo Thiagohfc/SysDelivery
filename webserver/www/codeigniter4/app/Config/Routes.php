@@ -56,6 +56,16 @@ $routes->post('clientes/create', 'Clientes::create');
 $routes->get('clientes/edit/(:num)', 'Clientes::edit/$1');
 $routes->post('clientes/update', 'Clientes::update');
 $routes->get('clientes/delete/(:num)', 'Clientes::delete/$1');
+$routes->post('clientes/search', 'Clientes::search');
+
+$routes->get('funcionarios', 'Funcionarios::index');
+$routes->get('funcionarios/new', 'Funcionarios::new');
+$routes->post('funcionarios/create', 'Funcionarios::create');
+$routes->get('funcionarios/edit/(:num)', 'Funcionarios::edit/$1');
+$routes->post('funcionarios/update', 'Funcionarios::update');
+$routes->get('funcionarios/delete/(:num)', 'Funcionarios::delete/$1');
+$routes->post('funcionarios/search', 'Funcionarios::search');
+
 
 $routes->get('/enderecos', 'Enderecos::index');
 $routes->get('/enderecos/index', 'Enderecos::index');

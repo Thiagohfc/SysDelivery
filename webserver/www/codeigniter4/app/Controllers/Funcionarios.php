@@ -2,10 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\Funcionarios as funcionarios_model;
-use App\Models\Usuarios as usuarios_model;
+use App\Models\Funcionarios as Funcionario;
+use App\Models\Usuarios as Usuario;
 
 class Funcionarios extends BaseController
 {
@@ -14,82 +12,100 @@ class Funcionarios extends BaseController
 
     public function __construct()
     {
-        $this->funcionarios = new funcionarios_model();
-        $this->usuarios = new usuarios_model();
+        $this->funcionarios = new Funcionario();
+        $this->usuarios = new Usuario();
         helper('functions');
     }
 
     public function index(): string
     {
         $data['title'] = 'Funcionários';
-        $data['funcionarios'] = $this->funcionarios->findAll();
+        $data['funcionarios'] = $this->funcionarios
+            ->select('funcionarios.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+            ->join('usuarios', 'funcionarios.funcionarios_usuario_id = usuarios.usuarios_id')
+            ->findAll();
+
         return view('funcionarios/index', $data);
     }
 
     public function new(): string
     {
-        $data['title'] = 'Funcionários';
-        $data['op'] = 'create';
-        $data['form'] = 'cadastrar';
-        $data['funcionarios'] = (object) [
-            'funcionarios_id' => '',
-            'funcionarios_usuario_id' => '',
-            'funcionarios_cargo' => '',
-            'funcionarios_salario' => '',
-            'funcionarios_data_admissao' => '',
-            'funcionarios_observacoes' => ''
+        $data = [
+            'title' => 'Novo Funcionário',
+            'op' => 'create',
+            'form' => 'Cadastrar',
+            'usuarios' => $this->usuarios->findAll(),
+            'funcionarios' => (object) [
+                'funcionarios_id' => '',
+                'funcionarios_usuario_id' => '',
+                'funcionarios_cargo' => '',
+                'funcionarios_salario' => '',
+                'funcionarios_data_admissao' => '',
+                'funcionarios_observacoes' => ''
+            ]
         ];
-        $data['usuarios'] = $this->usuarios->findAll();
+
         return view('funcionarios/form', $data);
     }
 
     public function create()
     {
         $this->funcionarios->save([
-            'funcionarios_usuario_id' => $_REQUEST['funcionarios_usuario_id'],
-            'funcionarios_cargo' => $_REQUEST['funcionarios_cargo'],
-            'funcionarios_salario' => moedaDolar($_REQUEST['funcionarios_salario']),
-            'funcionarios_data_admissao' => moedaDolar($_REQUEST['funcionarios_data_admissao']),
-            'funcionarios_observacoes' => $_REQUEST['funcionarios_observacoes']
+            'funcionarios_usuario_id' => $this->request->getPost('funcionarios_usuario_id'),
+            'funcionarios_cargo' => $this->request->getPost('funcionarios_cargo'),
+            'funcionarios_salario' => $this->request->getPost('funcionarios_salario'),
+            'funcionarios_data_admissao' => $this->request->getPost('funcionarios_data_admissao'),
+            'funcionarios_observacoes' => $this->request->getPost('funcionarios_observacoes'),
         ]);
 
-        $data['msg'] = msg('Funcionário cadastrado com sucesso!', 'success');
-        $data['funcionarios'] = $this->funcionarios->findAll();
-        $data['title'] = 'Funcionários';
-        return view('funcionarios/index', $data);
+        return redirect()->to('/funcionarios')->with('msg', msg('Funcionário cadastrado com sucesso!', 'success'));
     }
 
     public function delete($id)
     {
         $this->funcionarios->delete($id);
-        $data['msg'] = msg('Funcionário deletado com sucesso!', 'success');
-        $data['funcionarios'] = $this->funcionarios->findAll();
-        $data['title'] = 'Funcionários';
-        return view('funcionarios/index', $data);
+        return redirect()->to('/funcionarios')->with('msg', msg('Funcionário deletado com sucesso!', 'success'));
     }
 
     public function edit($id)
     {
-        $data['funcionario'] = $this->funcionarios->find($id);
-        $data['usuarios'] = $this->usuarios->findAll();
-        $data['title'] = 'Editar Funcionário';
-        $data['op'] = 'edit';
-        $data['form'] = 'editar';
+        $data = [
+            'funcionarios' => $this->funcionarios->find($id),
+            'usuarios' => $this->usuarios->findAll(),
+            'title' => 'Editar Funcionário',
+            'form' => 'Editar',
+            'op' => 'update',
+        ];
+
         return view('funcionarios/form', $data);
     }
+
     public function update()
     {
-        $this->funcionarios->update($_REQUEST['funcionarios_id'], [
-            'funcionarios_usuario_id' => $_REQUEST['funcionarios_usuario_id'],
-            'funcionarios_cargo' => $_REQUEST['funcionarios_cargo'],
-            'funcionarios_salario' => moedaDolar($_REQUEST['funcionarios_salario']),
-            'funcionarios_data_admissao' => moedaDolar($_REQUEST['funcionarios_data_admissao']),
-            'funcionarios_observacoes' => $_REQUEST['funcionarios_observacoes']
+        $this->funcionarios->update($this->request->getPost('funcionarios_id'), [
+            'funcionarios_usuario_id' => $this->request->getPost('funcionarios_usuario_id'),
+            'funcionarios_cargo' => $this->request->getPost('funcionarios_cargo'),
+            'funcionarios_salario' => $this->request->getPost('funcionarios_salario'),
+            'funcionarios_data_admissao' => $this->request->getPost('funcionarios_data_admissao'),
+            'funcionarios_observacoes' => $this->request->getPost('funcionarios_observacoes'),
         ]);
 
-        $data['msg'] = msg('Funcionário atualizado com sucesso!', 'success');
-        $data['funcionarios'] = $this->funcionarios->findAll();
+        return redirect()->to('/funcionarios')->with('msg', msg('Funcionário atualizado com sucesso!', 'success'));
+    }
+
+    public function search()
+    {
+        $pesquisar = $this->request->getPost('pesquisar');
+        $data['funcionarios'] = $this->funcionarios
+            ->select('funcionarios.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+            ->join('usuarios', 'funcionarios.funcionarios_usuario_id = usuarios.usuarios_id')
+            ->like('funcionarios_cargo', $pesquisar)
+            ->orLike('usuarios.usuarios_nome', $pesquisar)
+            ->findAll();
+
         $data['title'] = 'Funcionários';
+        $data['msg'] = msg("Resultados encontrados: " . count($data['funcionarios']), 'info');
+
         return view('funcionarios/index', $data);
     }
 }

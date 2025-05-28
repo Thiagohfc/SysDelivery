@@ -7,9 +7,9 @@ session();
 //     if($login->usuarios_nivel == 1){
 
 ?>
+
 <?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
-
 
 <div class="container pt-4 pb-5 bg-light">
     <h2 class="border-bottom border-2 border-primary">
@@ -17,10 +17,19 @@ session();
     </h2>
 
     <form action="<?= base_url('clientes/' . $op); ?>" method="post">
+        <!-- SELECT DE USUÁRIOS -->
         <div class="mb-3">
             <label for="clientes_usuario_id" class="form-label">Usuário</label>
-            <input type="number" class="form-control" name="clientes_usuario_id"
-                value="<?= $clientes->clientes_usuario_id ?? ''; ?>" id="clientes_usuario_id">
+            <select class="form-select" name="clientes_usuario_id" id="clientes_usuario_id" required>
+                <option value="">Selecione um usuário</option>
+                <?php foreach ($usuarios as $usuario): ?>
+                <option value="<?= $usuario->usuarios_id ?>"
+                    <?= isset($clientes->clientes_usuario_id) && $clientes->clientes_usuario_id == $usuario->usuarios_id ? 'selected' : '' ?>>
+                    <?= esc($usuario->usuarios_nome . ' ' . $usuario->usuarios_sobrenome) ?> -
+                    <?= esc($usuario->usuarios_cpf) ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -37,8 +46,6 @@ session();
             </button>
         </div>
     </form>
-
-
 </div>
 
 <?= $this->endSection() ?>
