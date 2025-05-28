@@ -50,6 +50,13 @@ $routes->post('/usuarios/salvar_senha', 'Usuarios::salvar_senha');
 $routes->get('/usuarios/edit_nivel', 'Usuarios::edit_nivel');
 $routes->post('/usuarios/salvar_nivel', 'Usuarios::salvar_nivel');
 
+$routes->get('clientes', 'Clientes::index');
+$routes->get('clientes/new', 'Clientes::new');
+$routes->post('clientes/create', 'Clientes::create');
+$routes->get('clientes/(:num)/edit', 'Clientes::edit/$1');
+$routes->post('clientes/update', 'Clientes::update');
+$routes->get('clientes/(:num)/delete', 'Clientes::delete/$1');
+
 $routes->get('/enderecos', 'Enderecos::index');
 $routes->get('/enderecos/index', 'Enderecos::index');
 $routes->get('/enderecos/new', 'Enderecos::new');
@@ -83,13 +90,3 @@ $routes->get('/imgprodutos/delete/(:any)', 'Imgprodutos::delete/$1');
 
 $routes->get('/relatorios/(:num)', 'Relatorios::index/$1');
 $routes->get('/relatorios/index', 'Relatorios::index');
-
-
-
-
-
-
-
-
-
-
