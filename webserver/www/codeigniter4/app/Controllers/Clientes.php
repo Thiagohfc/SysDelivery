@@ -21,7 +21,7 @@ class Clientes extends BaseController
     {
         $data['title'] = 'Clientes';
         $data['clientes'] = $this->clientes
-            ->select('clientes.*, usuarios.usuarios_nome')
+            ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
             ->join('usuarios', 'clientes.clientes_usuario_id = usuarios.usuarios_id')
             ->findAll();
 

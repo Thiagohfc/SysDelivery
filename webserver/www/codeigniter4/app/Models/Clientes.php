@@ -15,6 +15,15 @@ class Clientes extends Model
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
     protected $deletedField = 'deleted_at';
+    protected $returnType = 'object';
+
+    public function getClientesComUsuarios()
+    {
+        return $this->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+            ->findAll();
+    }
+
 
 
 }

@@ -205,9 +205,9 @@ class Usuarios extends BaseController
     public function edit_nivel(): string
     {
         $data['nivel'] = [
-            ['id' => 0, 'nivel' => "Usuário"],
+            ['id' => 0, 'nivel' => "Cliente"],
             ['id' => 1, 'nivel' => "Administrador"],
-            ['id' => 2, 'nivel' => "Supervisor"]
+            ['id' => 2, 'nivel' => "Funcionário"]
         ];
 
         $data['usuarios'] = $this->usuarios->findAll();
