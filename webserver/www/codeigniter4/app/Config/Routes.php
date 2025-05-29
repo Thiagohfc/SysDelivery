@@ -66,6 +66,13 @@ $routes->post('funcionarios/update', 'Funcionarios::update');
 $routes->get('funcionarios/delete/(:num)', 'Funcionarios::delete/$1');
 $routes->post('funcionarios/search', 'Funcionarios::search');
 
+$routes->get('pedidos', 'Pedidos::index');
+$routes->get('pedidos/new', 'Pedidos::new');
+$routes->post('pedidos/create', 'Pedidos::create');
+$routes->get('pedidos/edit/(:num)', 'Pedidos::edit/$1');
+$routes->post('pedidos/update', 'Pedidos::update');
+$routes->get('pedidos/delete/(:num)', 'Pedidos::delete/$1');
+$routes->post('pedidos/search', 'Pedidos::search');
 
 $routes->get('/enderecos', 'Enderecos::index');
 $routes->get('/enderecos/index', 'Enderecos::index');
@@ -76,12 +83,10 @@ $routes->post('/enderecos/update', 'Enderecos::update');
 $routes->post('/enderecos/search', 'Enderecos::search');
 $routes->get('/enderecos/delete/(:any)', 'Enderecos::delete/$1');
 
-
 $routes->get('/login', 'Login::index');
 $routes->get('/login/index', 'Login::index');
 $routes->post('/login/logar', 'Login::logar');
 $routes->get('/login/logout', 'Login::logout');
-
 
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/index', 'Admin::index');

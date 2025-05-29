@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\Pedidos;
-use App\Models\Clientes;
+use App\Models\Pedidos as Pedido;
+use App\Models\Clientes as Cliente;
 
-class PedidosController extends BaseController
+class Pedidos extends BaseController
 {
     private $pedidos;
     private $clientes;
 
     public function __construct()
     {
-        $this->pedidos = new Pedidos();
-        $this->clientes = new Clientes();
+        $this->pedidos = new Pedido();
+        $this->clientes = new Cliente();
         helper('functions');
     }
 
@@ -21,7 +21,10 @@ class PedidosController extends BaseController
         $data['title'] = 'Pedidos';
         $data['pedidos'] = $this->pedidos
             ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
+            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+            ->select('pedidos.*, clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
             ->findAll();
+
         return view('pedidos/index', $data);
     }
 
@@ -30,10 +33,13 @@ class PedidosController extends BaseController
         $data['title'] = 'Novo Pedido';
         $data['op'] = 'create';
         $data['form'] = 'Cadastrar';
-        $data['clientes'] = $this->clientes->findAll();
-        $data['pedido'] = (object) [
+        $data['clientes'] = $this->clientes
+            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+            ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+            ->findAll();
+        $data['pedidos'] = (object) [
             'clientes_id' => '',
-            'data_pedido' => date('Y-m-d H:i:s'),
+            'data_pedido' => date('Y-m-d\TH:i'),
             'status' => 'aguardando',
             'observacoes' => '',
             'total_pedido' => '0.00',
@@ -71,8 +77,11 @@ class PedidosController extends BaseController
     public function edit($id)
     {
         $data['title'] = 'Editar Pedido';
-        $data['clientes'] = $this->clientes->findAll();
-        $data['pedido'] = $this->pedidos->find($id);
+        $data['clientes'] = $this->clientes
+            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+            ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+            ->findAll();
+        $data['pedidos'] = $this->pedidos->find($id);
         $data['op'] = 'update';
         $data['form'] = 'Alterar';
         return view('pedidos/form', $data);
