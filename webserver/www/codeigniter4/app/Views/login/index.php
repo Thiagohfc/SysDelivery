@@ -41,6 +41,9 @@
                             <input type="checkbox" class="form-check-input"
                                 id="checkme">
                             <label class="form-check-label" for="checkme">Manter-me Conectado</label>
+                            <div class="text-center mt-3 mb-3 color-white">
+                                <p>Não tem uma conta? <a class="link-offset-2 link-underline link-underline-opacity-0" href="<?= base_url('cadastro'); ?>">Cadastre-se</a></p>
+                            </div>
                         </div>
                         
                         <!-- botão Logar -->

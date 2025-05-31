@@ -51,6 +51,9 @@ class Login extends BaseController
                     return view('user/index',$this->data);
                 }
                 elseif($this->data['usuarios'][0]->usuarios_nivel == 1){
+                    return view('funcionario/index',$this->data);
+                }
+                elseif($this->data['usuarios'][0]->usuarios_nivel == 2){
                     return view('admin/index',$this->data);
                 }else{
                     $this->data['msg'] = msg('Houve um problema com o seu acesso. Procure a Gerência de TI!','danger');
@@ -71,7 +74,7 @@ class Login extends BaseController
         // //return redirect()->to('home');
         session()->destroy(); // Destrói todos os dados da sessão
         //return redirect('/'); // Redireciona para a página inicial
-        return view('home/index',$this->data);
+        return redirect()->to('/')->with('msg', msg('Usuário desconectado','success'));
     }
 
 

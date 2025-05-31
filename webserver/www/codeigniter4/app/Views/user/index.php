@@ -16,8 +16,8 @@
                 <li class="breadcrumb-item"><a href="#">Usuário</a></li>
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Data</li>
-                <span class="breadcrumb-text">Seja bem vindo <?= $login->usuarios_nome ?></span>
             </ol>     
+            <span class="breadcrumb-text">Seja bem vindo <?= $login->usuarios_nome ?></span>
         </nav>
         <h2 class="border-bottom border-2 border-primary">
             Usuário

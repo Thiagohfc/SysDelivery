@@ -96,6 +96,10 @@ $routes->get('/login/index', 'Login::index');
 $routes->post('/login/logar', 'Login::logar');
 $routes->get('/login/logout', 'Login::logout');
 
+$routes->get('/cadastro', 'Cadastro::index');
+$routes->get('/cadastro/index', 'Cadastro::index');
+$routes->post('/cadastro/salvar', 'Cadastro::salvar');
+
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/index', 'Admin::index');
 
