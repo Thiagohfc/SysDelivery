@@ -74,6 +74,14 @@ $routes->post('pedidos/update', 'Pedidos::update');
 $routes->get('pedidos/delete/(:num)', 'Pedidos::delete/$1');
 $routes->post('pedidos/search', 'Pedidos::search');
 
+$routes->get('vendas', 'Vendas::index');
+$routes->get('vendas/new', 'Vendas::new');
+$routes->post('vendas/create', 'Vendas::create');
+$routes->get('vendas/edit/(:num)', 'Vendas::edit/$1');
+$routes->post('vendas/update', 'Vendas::update');
+$routes->get('vendas/delete/(:num)', 'Vendas::delete/$1');
+$routes->post('vendas/search', 'Vendas::search');
+
 $routes->get('/enderecos', 'Enderecos::index');
 $routes->get('/enderecos/index', 'Enderecos::index');
 $routes->get('/enderecos/new', 'Enderecos::new');
