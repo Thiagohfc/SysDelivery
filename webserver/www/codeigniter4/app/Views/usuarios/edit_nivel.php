@@ -3,7 +3,7 @@
     session();
     if(isset($_SESSION['login'])){
         $login = $_SESSION['login'];
-        if($login->usuarios_nivel == 1){
+        if($login->usuarios_nivel == 2){
     
 ?>
 <?= $this->extend('Templates_admin') ?>
