@@ -206,8 +206,8 @@ class Usuarios extends BaseController
     {
         $data['nivel'] = [
             ['id' => 0, 'nivel' => "Cliente"],
-            ['id' => 1, 'nivel' => "Administrador"],
-            ['id' => 2, 'nivel' => "Funcionário"]
+            ['id' => 1, 'nivel' => "Funcionário"],
+            ['id' => 2, 'nivel' => "Administrador"]
         ];
 
         $data['usuarios'] = $this->usuarios->findAll();

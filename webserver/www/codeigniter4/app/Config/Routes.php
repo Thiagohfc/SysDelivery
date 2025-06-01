@@ -51,6 +51,7 @@ $routes->get('/usuarios/edit_nivel', 'Usuarios::edit_nivel');
 $routes->post('/usuarios/salvar_nivel', 'Usuarios::salvar_nivel');
 
 $routes->get('clientes', 'Clientes::index');
+$routes->get('clientes/index', 'Clientes::index');
 $routes->get('clientes/new', 'Clientes::new');
 $routes->post('clientes/create', 'Clientes::create');
 $routes->get('clientes/edit/(:num)', 'Clientes::edit/$1');
@@ -59,6 +60,7 @@ $routes->get('clientes/delete/(:num)', 'Clientes::delete/$1');
 $routes->post('clientes/search', 'Clientes::search');
 
 $routes->get('funcionarios', 'Funcionarios::index');
+$routes->get('funcionarios/index', 'Funcionarios::index');
 $routes->get('funcionarios/new', 'Funcionarios::new');
 $routes->post('funcionarios/create', 'Funcionarios::create');
 $routes->get('funcionarios/edit/(:num)', 'Funcionarios::edit/$1');
@@ -67,6 +69,7 @@ $routes->get('funcionarios/delete/(:num)', 'Funcionarios::delete/$1');
 $routes->post('funcionarios/search', 'Funcionarios::search');
 
 $routes->get('pedidos', 'Pedidos::index');
+$routes->get('pedidos/index', 'Pedidos::index');
 $routes->get('pedidos/new', 'Pedidos::new');
 $routes->post('pedidos/create', 'Pedidos::create');
 $routes->get('pedidos/edit/(:num)', 'Pedidos::edit/$1');
@@ -75,6 +78,7 @@ $routes->get('pedidos/delete/(:num)', 'Pedidos::delete/$1');
 $routes->post('pedidos/search', 'Pedidos::search');
 
 $routes->get('vendas', 'Vendas::index');
+$routes->get('vendas/index', 'Vendas::index');
 $routes->get('vendas/new', 'Vendas::new');
 $routes->post('vendas/create', 'Vendas::create');
 $routes->get('vendas/edit/(:num)', 'Vendas::edit/$1');
