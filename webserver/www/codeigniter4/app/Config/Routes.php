@@ -139,3 +139,15 @@ $routes->get('/estoques/edit/(:any)', 'Estoques::edit/$1');
 $routes->post('/estoques/update', 'Estoques::update');
 $routes->post('estoques/search', 'Estoques::search');
 $routes->get('/estoques/delete/(:any)', 'Estoques::delete/$1');
+
+$routes->get('/itens_pedido', 'ItensPedido::index');
+$routes->get('/itens_pedido/index', 'ItensPedido::index');
+$routes->get('/itens_pedido/new', 'ItensPedido::new');
+$routes->post('/itens_pedido/create', 'ItensPedido::create');
+$routes->get('/itens_pedido/edit/(:any)', 'ItensPedido::edit/$1');
+$routes->post('/itens_pedido/update', 'ItensPedido::update');
+$routes->get('/itens_pedido/delete/(:any)', 'ItensPedido::delete/$1');
+$routes->post('/itens_pedido/search', 'ItensPedido::search');
+$routes->get('/itens_pedido/getItensPedido/(:any)', 'ItensPedido::getItensPedido/$1');
+$routes->get('/itens_pedido/getItensPedidoByPedido/(:any)', 'ItensPedido::getItensPedidoByPedido/$1');
+$routes->get('/itens_pedido/getItensPedidoByProduto/(:any)', 'ItensPedido::getItensPedidoByProduto/$1');

@@ -92,6 +92,15 @@ class Vendas extends BaseController
     {
         $id = $this->request->getPost('vendas_id');
 
+        if (!$this->validate([
+            'pedidos_id' => 'required',
+            'forma_pagamento' => 'required',
+            'valor_total' => 'required|decimal',
+            'observacoes' => 'permit_empty|string|max_length[255]'
+        ])) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $this->vendas->update($id, [
             'pedidos_id' => $this->request->getPost('pedidos_id'),
             'forma_pagamento' => $this->request->getPost('forma_pagamento'),

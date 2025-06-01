@@ -91,6 +91,15 @@ class Pedidos extends BaseController
     {
         $id = $this->request->getPost('pedidos_id');
 
+        if (!$this->validate([
+            'clientes_id' => 'required',
+            'status' => 'required',
+            'observacoes' => 'permit_empty',
+            'total_pedido' => 'required|decimal'
+        ])) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $this->pedidos->update($id, [
             'clientes_id' => $this->request->getPost('clientes_id'),
             'status' => $this->request->getPost('status'),
