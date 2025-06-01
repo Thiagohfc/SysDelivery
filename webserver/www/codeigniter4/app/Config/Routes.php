@@ -129,7 +129,7 @@ $routes->post('/entregas/create', 'Entregas::create');
 $routes->get('/entregas/edit/(:any)', 'Entregas::edit/$1');
 $routes->post('/entregas/update', 'Entregas::update');
 $routes->post('entregas/search', 'Entregas::search');
-$routes->delete('/entregas/delete/(:any)', 'Entregas::delete/$1');
+$routes->get('/entregas/delete/(:any)', 'Entregas::delete/$1');
 
 $routes->get('/estoques', 'Estoques::index');
 $routes->get('/estoques/index', 'Estoques::index');
@@ -138,4 +138,4 @@ $routes->post('/estoques/create', 'Estoques::create');
 $routes->get('/estoques/edit/(:any)', 'Estoques::edit/$1');
 $routes->post('/estoques/update', 'Estoques::update');
 $routes->post('estoques/search', 'Estoques::search');
-$routes->delete('/estoques/delete/(:any)', 'Estoques::delete/$1');
+$routes->get('/estoques/delete/(:any)', 'Estoques::delete/$1');

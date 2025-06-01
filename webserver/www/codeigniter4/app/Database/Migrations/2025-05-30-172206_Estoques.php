@@ -13,7 +13,7 @@ class Estoques extends Migration
                 "type" => "INT",
                 "constraint" => 11,
                 "unsigned" => true,
-                "auto-increment" => true,
+                "auto_increment" => true,
                 ],
             "produto_id" => [
                 "type"=> "INT",
