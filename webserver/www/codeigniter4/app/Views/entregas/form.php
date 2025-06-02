@@ -78,7 +78,8 @@ session();
         </div>
 
         <!-- ID oculto -->
-        <input type="hidden" name="entregas_id" value="<?= esc($entrega->entregas_id) ?>">
+        <input type="hidden" name="entregas_id"
+            value="<?= isset($entrega->entregas_id) ? esc($entrega->entregas_id) : '' ?>">
 
         <div class="mb-3">
             <button class="btn btn-success" type="submit">
