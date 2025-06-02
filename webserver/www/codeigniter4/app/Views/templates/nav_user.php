@@ -26,7 +26,12 @@
                             </a>
                         </li>
 
-                          
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url('pedidos') ?>">
+                                <i class="bi bi-table"></i>
+                                Pedidos
+                            </a>
+                        </li>
 
                     </ul>
 

@@ -84,7 +84,7 @@
                 <div class="mb-3">
                     <label for="observacoes" class="form-label">
                         <i class="bi bi-chat-dots"></i>
-                        Observações
+                        Observações (opcional)
                     </label>
                     <textarea name="observacoes" placeholder="Observações adicionais" class="form-control" id="observacoes"></textarea>
                 </div>

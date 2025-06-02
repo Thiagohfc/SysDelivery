@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class ItensPedido extends Model
 {
-    protected $table = 'itens_pedidos';
+    protected $table = 'itens_pedido';
     protected $primaryKey = 'itens_pedido_id';
 
     protected $allowedFields = [

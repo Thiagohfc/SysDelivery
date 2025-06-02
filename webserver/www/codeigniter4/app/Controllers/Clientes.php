@@ -47,9 +47,15 @@ class Clientes extends BaseController
 
     public function create()
     {
+        if (!$this->validate([
+            'clientes_usuario_id' => 'required',
+        ])) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $this->clientes->save([
             'clientes_usuario_id' => $this->request->getPost('clientes_usuario_id'),
-            'clientes_observacoes' => $this->request->getPost('clientes_observacoes'),
+            'clientes_observacoes' => $this->request->getPost('clientes_observacoes') ?: null,
         ]);
 
         return redirect()->to('/clientes')->with('msg', msg('Cliente cadastrado com sucesso!', 'success'));

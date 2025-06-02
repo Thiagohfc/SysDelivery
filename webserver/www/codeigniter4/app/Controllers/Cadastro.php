@@ -56,7 +56,7 @@ class Cadastro extends BaseController
         if ($usuarioId) {
             $this->clientes->save([
                 'clientes_usuario_id' => $usuarioId,
-                'clientes_observacoes' => $this->request->getPost('observacoes'),
+                'clientes_observacoes' => $this->request->getPost('observacoes') ?: null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);

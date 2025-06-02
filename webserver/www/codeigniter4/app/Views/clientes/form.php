@@ -33,7 +33,7 @@ session();
         </div>
 
         <div class="mb-3">
-            <label for="clientes_observacoes" class="form-label">Observações</label>
+            <label for="clientes_observacoes" class="form-label">Observações (opcional)</label>
             <textarea class="form-control" name="clientes_observacoes" id="clientes_observacoes"
                 rows="4"><?= $clientes->clientes_observacoes ?? ''; ?></textarea>
         </div>

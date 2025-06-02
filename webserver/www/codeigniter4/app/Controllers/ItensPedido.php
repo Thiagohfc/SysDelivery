@@ -127,41 +127,4 @@ class ItensPedido extends BaseController
 
         return view('itens_pedido/index', $data);
     }
-
-    public function getItensPedidoByPedidoId($pedidoId)
-    {
-        $itens = $this->itens_Pedido
-            ->where('pedidos_id', $pedidoId)
-            ->findAll();
-
-        if (empty($itens)) {
-            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND, 'Nenhum item encontrado para este pedido.');
-        }
-
-        return $this->response->setJSON($itens);
-    }
-
-    public function getItensPedidoByProdutoId($produtoId)
-    {
-        $itens = $this->itens_Pedido
-            ->where('produtos_id', $produtoId)
-            ->findAll();
-
-        if (empty($itens)) {
-            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND, 'Nenhum item encontrado para este produto.');
-        }
-
-        return $this->response->setJSON($itens);
-    }
-
-    public function getItensPedidoById($id)
-    {
-        $item = $this->itens_Pedido->find($id);
-
-        if (!$item) {
-            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND, 'Item do pedido não encontrado.');
-        }
-
-        return $this->response->setJSON($item);
-    }
 }
