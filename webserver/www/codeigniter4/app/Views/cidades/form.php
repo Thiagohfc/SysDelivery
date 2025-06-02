@@ -16,7 +16,8 @@
         <?= ucfirst($form).' '.$title ?>
     </h2>
 
-    <form action="<?= base_url('cidades/'.$op); ?>" method="post">
+    <form action="<?= base_url('cidades/' . $op); ?>" method="post">
+        <?= csrf_field() ?>
         <div class="mb-3">
             <label for="cidades_nome" class="form-label"> Cidade </label>
             <input type="text" class="form-control" name="cidades_nome" value="<?= $cidades->cidades_nome; ?>"

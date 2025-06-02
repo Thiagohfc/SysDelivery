@@ -12,10 +12,10 @@ $routes->get('/cidades', 'Cidades::index');
 $routes->get('/cidades/index', 'Cidades::index');
 $routes->get('/cidades/new', 'Cidades::new');
 $routes->post('/cidades/create', 'Cidades::create');
-$routes->get('/cidades/edit/(:any)', 'Cidades::edit/$1');
+$routes->get('/cidades/edit/(:num)', 'Cidades::edit/$1');
 $routes->post('/cidades/update', 'Cidades::update');
 $routes->post('/cidades/search', 'Cidades::search');
-$routes->get('/cidades/delete/(:any)', 'Cidades::delete/$1');
+$routes->get('/cidades/delete/(:num)', 'Cidades::delete/$1');
 
 $routes->get('/categorias', 'Categorias::index');
 $routes->get('/categorias/index', 'Categorias::index');
@@ -129,7 +129,7 @@ $routes->post('/entregas/create', 'Entregas::create');
 $routes->get('/entregas/edit/(:any)', 'Entregas::edit/$1');
 $routes->post('/entregas/update', 'Entregas::update');
 $routes->post('entregas/search', 'Entregas::search');
-$routes->get('/entregas/delete/(:any)', 'Entregas::delete/$1');
+$routes->get('/entregas/delete/(:num)', 'Entregas::delete/$1');
 
 $routes->get('/estoques', 'Estoques::index');
 $routes->get('/estoques/index', 'Estoques::index');

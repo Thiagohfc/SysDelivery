@@ -1,11 +1,11 @@
 <?php
-    helper('functions');
-    session();
-    // if(isset($_SESSION['login'])){
-    //     $login = $_SESSION['login'];
-    //     print_r($login);
-    //     if($login->usuarios_nivel == 2){
-    
+helper('functions');
+session();
+// if(isset($_SESSION['login'])){
+//     $login = $_SESSION['login'];
+//     print_r($login);
+//     if($login->usuarios_nivel == 2){
+
 ?>
 
 <?= $this->extend('Templates_admin') ?>
@@ -13,9 +13,10 @@
 
 <div class="container">
 
-    <h2 class="border-bottom border-2 border-primary mt-3 mb-4"> <?= $title ?> </h2>
+    <h2 class="border-bottom border-2 border-primary mt-3 mb-4"> <?= esc($title) ?> </h2>
 
-    <?php if (isset($msg)) echo $msg; ?>
+    <?php if (isset($msg))
+        echo $msg; ?>
 
     <form action="<?= base_url('enderecos/search'); ?>" class="d-flex mb-3" method="post">
         <input class="form-control me-2" name="pesquisar" type="search" placeholder="Pesquisar" aria-label="Search">
@@ -24,15 +25,16 @@
         </button>
     </form>
 
-    <table class="table">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Rua</th>
                 <th>Número</th>
                 <th>Complemento</th>
-                <th>Cidade ID</th>
-                <th>Usuário ID</th>
+                <th>Status</th>
+                <th>Cidade</th>
+                <th>Usuário</th>
                 <th>
                     <a class="btn btn-success" href="<?= base_url('enderecos/new'); ?>">
                         Novo
@@ -44,13 +46,13 @@
         <tbody class="table-group-divider">
             <?php foreach ($enderecos as $e): ?>
             <tr>
-                <td><?= $e->enderecos_id ?></td>
-                <td><?= $e->enderecos_rua ?></td>
-                <td><?= $e->enderecos_numero ?></td>
-                <td><?= $e->enderecos_complemento ?></td>
+                <td><strong><?= esc($e->enderecos_id) ?></strong></td>
+                <td><?= esc($e->enderecos_rua) ?></td>
+                <td><?= esc($e->enderecos_numero) ?></td>
+                <td><?= esc($e->enderecos_complemento) ?></td>
                 <td><?= $e->enderecos_status ? 'Ativo' : 'Inativo' ?></td>
-                <td><?= $e->enderecos_cidade_id ?></td>
-                <td><?= $e->enderecos_usuario_id ?></td>
+                <td><?= esc($e->cidades_nome ?? 'N/A') ?></td>
+                <td><?= esc($e->usuarios_nome ?? 'N/A') ?></td>
                 <td>
                     <a class="btn btn-primary" href="<?= base_url('enderecos/edit/' . $e->enderecos_id); ?>">
                         Editar

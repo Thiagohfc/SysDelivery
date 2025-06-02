@@ -13,7 +13,7 @@ class Entregas extends Migration
                 'type'=> 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'auto-increment' => true,
+                'auto_increment' => true,
             ],
             'pedido_id' => [
                 'type'=> 'INT',

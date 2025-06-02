@@ -52,14 +52,16 @@ class Enderecos extends BaseController
 
     public function create()
     {
-        if (!$this->validate([
+        $validationRules = [
             'enderecos_rua' => 'required|max_length[255]',
             'enderecos_numero' => 'required|max_length[10]',
             'enderecos_status' => 'required|in_list[0,1]',
             'enderecos_cidade_id' => 'required|integer',
             'enderecos_usuario_id' => 'required|integer',
-        ])) {
-            $data['enderecos'] = (object)$_REQUEST;
+        ];
+
+        if (!$this->validate($validationRules)) {
+            $data['enderecos'] = (object) $this->request->getPost();
             $data['title'] = 'Novo Endereço';
             $data['form'] = 'Cadastrar';
             $data['op'] = 'create';
@@ -68,7 +70,7 @@ class Enderecos extends BaseController
             return view('enderecos/form', $data);
         }
 
-        $this->enderecos->save($_REQUEST);
+        $this->enderecos->save($this->request->getPost());
 
         $data['msg'] = msg('Cadastrado com sucesso!', 'success');
         $data['enderecos'] = $this->enderecos
@@ -79,6 +81,7 @@ class Enderecos extends BaseController
 
         return view('enderecos/index', $data);
     }
+
 
     public function delete($id)
     {
