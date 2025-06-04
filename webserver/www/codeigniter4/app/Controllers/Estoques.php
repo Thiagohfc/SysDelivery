@@ -113,8 +113,6 @@ class Estoques extends BaseController
             'msg' => msg("Dados encontrados: {$total}", 'success')
         ]);
     }
-    <?php
-
     public function saida_estoque($quantidade_saida, $produto_id)
     {
         $validationData = [
