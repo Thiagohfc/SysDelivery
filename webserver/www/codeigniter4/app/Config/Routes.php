@@ -87,6 +87,8 @@ $routes->get('vendas/edit/(:num)', 'Vendas::edit/$1');
 $routes->post('vendas/update', 'Vendas::update');
 $routes->get('vendas/delete/(:num)', 'Vendas::delete/$1');
 $routes->post('vendas/search', 'Vendas::search');
+$routes->get('vendas/getTotalPedido/(:num)', 'Vendas::getTotalPedido/$1');
+
 
 $routes->get('/enderecos', 'Enderecos::index');
 $routes->get('/enderecos/index', 'Enderecos::index');

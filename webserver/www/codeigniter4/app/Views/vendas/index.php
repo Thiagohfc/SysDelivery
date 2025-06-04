@@ -24,6 +24,16 @@ session();
         </button>
     </form>
 
+    <?php
+    $formas_pagamento_legiveis = [
+        'dinheiro' => 'Dinheiro',
+        'cartao_credito' => 'Cartão de Crédito',
+        'cartao_debito' => 'Cartão de Débito',
+        'pix' => 'Pix',
+        'boleto' => 'Boleto'
+    ];
+    ?>
+
     <table class="table">
         <thead>
             <tr>
@@ -45,7 +55,7 @@ session();
                 <td><?= $venda->vendas_id ?></td>
                 <td><?= $venda->usuarios_nome . ' ' . $venda->usuarios_sobrenome ?></td>
                 <td><?= date('d/m/Y H:i', strtotime($venda->data_venda)) ?></td>
-                <td><?= ucfirst($venda->forma_pagamento) ?></td>
+                <td><?= $formas_pagamento_legiveis[$venda->forma_pagamento] ?? ucfirst($venda->forma_pagamento) ?></td>
                 <td>R$ <?= number_format($venda->valor_total, 2, ',', '.') ?></td>
                 <td>
                     <a class="btn btn-primary" href="<?= base_url('vendas/edit/' . $venda->vendas_id); ?>">

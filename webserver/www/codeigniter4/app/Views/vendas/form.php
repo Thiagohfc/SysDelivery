@@ -21,7 +21,8 @@ session();
         <!-- SELECT DE PEDIDOS -->
         <div class="mb-3">
             <label for="pedidos_id" class="form-label">Pedido</label>
-            <select class="form-select" name="pedidos_id" id="pedidos_id" required>
+            <select class="form-select" name="pedidos_id" id="pedidos_id" required
+                onchange="atualizarValorTotal(this.value)">
                 <option value="">Selecione um pedido</option>
                 <?php foreach ($pedidos as $pedido): ?>
                 <option value="<?= $pedido->pedidos_id ?>"
@@ -55,8 +56,8 @@ session();
                     <?= isset($venda->forma_pagamento) && $venda->forma_pagamento == 'cartao_debito' ? 'selected' : '' ?>>
                     Cartão de Débito</option>
                 <option value="pix"
-                    <?= isset($venda->forma_pagamento) && $venda->forma_pagamento == 'pix' ? 'selected' : '' ?>>
-                    Pix</option>
+                    <?= isset($venda->forma_pagamento) && $venda->forma_pagamento == 'pix' ? 'selected' : '' ?>>Pix
+                </option>
                 <option value="boleto"
                     <?= isset($venda->forma_pagamento) && $venda->forma_pagamento == 'boleto' ? 'selected' : '' ?>>
                     Boleto</option>
@@ -66,8 +67,9 @@ session();
         <!-- Valor Total -->
         <div class="mb-3">
             <label for="valor_total" class="form-label">Valor Total (R$)</label>
-            <input type="number" step="0.01" class="form-control" name="valor_total"
-                value="<?= $venda->valor_total ?? ''; ?>" id="valor_total" required>
+            <input type="text" class="form-control" name="valor_total" id="valor_total"
+                value="<?= isset($venda->valor_total) ? number_format($venda->valor_total, 2, ',', '') : ''; ?>"
+                readonly required>
         </div>
 
         <!-- Observações -->
@@ -87,6 +89,28 @@ session();
         </div>
     </form>
 </div>
+
+<script>
+function atualizarValorTotal(pedidos_id) {
+    if (!pedidos_id) {
+        document.getElementById('valor_total').value = '';
+        return;
+    }
+
+    fetch(`<?= base_url('vendas/getTotalPedido/') ?>${pedidos_id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.total_pedido !== undefined) {
+                const valorFormatado = parseFloat(data.total_pedido).toFixed(2).replace('.', ',');
+                document.getElementById('valor_total').value = valorFormatado;
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao buscar o total do pedido:', error);
+        });
+}
+</script>
+
 
 <?= $this->endSection() ?>
 

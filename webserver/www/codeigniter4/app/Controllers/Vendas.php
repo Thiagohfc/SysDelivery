@@ -92,24 +92,30 @@ class Vendas extends BaseController
     {
         $id = $this->request->getPost('vendas_id');
 
-        if (!$this->validate([
-            'pedidos_id' => 'required',
-            'forma_pagamento' => 'required',
-            'valor_total' => 'required|decimal',
-            'observacoes' => 'permit_empty|string|max_length[255]'
-        ])) {
+        if (
+            !$this->validate([
+                'pedidos_id' => 'required|is_natural_no_zero',
+                'data_venda' => 'required|valid_date[Y-m-d\TH:i]',
+                'forma_pagamento' => 'required',
+                'valor_total' => 'required',
+                'observacoes' => 'permit_empty'
+            ])
+        ) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $this->vendas->update($id, [
             'pedidos_id' => $this->request->getPost('pedidos_id'),
+            'data_venda' => $this->request->getPost('data_venda'),
             'forma_pagamento' => $this->request->getPost('forma_pagamento'),
             'valor_total' => moedaDolar($this->request->getPost('valor_total')),
             'observacoes' => $this->request->getPost('observacoes')
         ]);
 
-        return redirect()->to('/vendas')->with('msg', msg('Venda alterada com sucesso!', 'success'));
+        return redirect()->to('/vendas')->with('msg', msg('Venda atualizada com sucesso!', 'success'));
     }
+
+
 
     public function search()
     {
@@ -128,4 +134,16 @@ class Vendas extends BaseController
         $data['title'] = 'Vendas';
         return view('vendas/index', $data);
     }
+
+    public function getTotalPedido($id)
+    {
+        $pedido = $this->pedidos->find($id);
+
+        if (!$pedido) {
+            return $this->response->setStatusCode(404)->setJSON(['erro' => 'Pedido não encontrado']);
+        }
+
+        return $this->response->setJSON(['total_pedido' => $pedido->total_pedido]);
+    }
+
 }
