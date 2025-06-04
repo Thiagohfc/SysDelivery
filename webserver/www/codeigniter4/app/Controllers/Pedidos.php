@@ -225,10 +225,19 @@ class Pedidos extends BaseController
 
     public function edit($id)
     {
-        $data['title'] = 'Editar Pedido';
+        $data['title'] = 'Pedido';
         $data['clientes'] = $this->clientes
             ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
             ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+            ->findAll();
+        $data['produtos'] = $this->produtos
+            ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+            ->select('produtos.*, categorias.categorias_nome')
+            ->findAll();
+        $data['enderecos'] = $this->enderecos
+            ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
+            ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
+            ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
             ->findAll();
         $data['pedidos'] = $this->pedidos->find($id);
         $data['op'] = 'update';

@@ -31,6 +31,10 @@ class ItensPedido extends BaseController
         $builder->select('itens_pedido.*, produtos.produtos_nome AS produto_nome, produtos.produtos_preco_venda');
         $builder->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id', 'left');
         $builder->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id', 'left');
+
+        $builder->orderBy('itens_pedido.pedidos_id', 'ASC');
+        $builder->orderBy('itens_pedido.itens_pedido_id', 'ASC');
+
         $query = $builder->get();
 
         $data['title'] = 'Itens do Pedido';
@@ -38,7 +42,6 @@ class ItensPedido extends BaseController
 
         return view('itens_pedido/index', $data);
     }
-
     public function new()
     {
         $data['title'] = 'Novo Item do Pedido';
