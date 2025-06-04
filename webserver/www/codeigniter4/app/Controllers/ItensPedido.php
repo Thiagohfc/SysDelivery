@@ -15,12 +15,14 @@ class ItensPedido extends BaseController
     protected $itens_Pedido;
     protected $pedidos;
     protected $produtos;
+
     public function __construct()
     {
         $this->itens_Pedido = new Itens_Pedido();
         $this->pedidos = new Pedidos();
         $this->produtos = new Produtos();
     }
+
     public function index()
     {
         $db = \Config\Database::connect();
@@ -56,12 +58,14 @@ class ItensPedido extends BaseController
 
     public function create()
     {
-        if (!$this->validate([
-            'pedidos_id' => 'required',
-            'produtos_id' => 'required',
-            'quantidade' => 'required|integer',
-            'preco_unitario' => 'required|decimal'
-        ])) {
+        if (
+            !$this->validate([
+                'pedidos_id' => 'required',
+                'produtos_id' => 'required',
+                'quantidade' => 'required|integer',
+                'preco_unitario' => 'required|decimal'
+            ])
+        ) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -73,7 +77,6 @@ class ItensPedido extends BaseController
         ]);
 
         return redirect()->to('/itens_pedido')->with('msg', '<div class="alert alert-success">Item do pedido cadastrado com sucesso!</div>');
-
     }
 
     public function edit($id)
@@ -96,12 +99,14 @@ class ItensPedido extends BaseController
     {
         $id = $this->request->getPost('itens_pedido_id');
 
-        if (!$this->validate([
-            'pedidos_id' => 'required',
-            'produtos_id' => 'required',
-            'quantidade' => 'required|integer',
-            'preco_unitario' => 'required|decimal'
-        ])) {
+        if (
+            !$this->validate([
+                'pedidos_id' => 'required',
+                'produtos_id' => 'required',
+                'quantidade' => 'required|integer',
+                'preco_unitario' => 'required|decimal'
+            ])
+        ) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -124,7 +129,6 @@ class ItensPedido extends BaseController
         return redirect()->to('/itens_pedido')->with('msg', msg('Item do pedido deletado com sucesso!', 'success'));
     }
 
-
     public function search()
     {
         $search = $this->request->getGet('search');
@@ -139,4 +143,32 @@ class ItensPedido extends BaseController
 
         return view('itens_pedido/index', $data);
     }
+
+    public function finalizar_pedido($id)
+    {
+        $pedido = $this->pedidos->find($id);
+        if (!$pedido) {
+            return redirect()->to('/itens_pedido')->with('msg', msg('Pedido não encontrado!', 'danger'));
+        }
+
+        $itens = $this->itens_Pedido->where('pedidos_id', $id)->findAll();
+
+        if (empty($itens)) {
+            return redirect()->to('/itens_pedido')->with('msg', msg('O pedido não possui itens!', 'warning'));
+        }
+
+        // Soma o total do pedido
+        $totalPedido = 0;
+        foreach ($itens as $item) {
+            $totalPedido += $item->preco_unitario;
+        }
+
+        if ($this->pedidos->update($id, ['total_pedido' => $totalPedido])) {
+            return redirect()->to('/itens_pedido')->with('msg', msg('Pedido finalizado com sucesso!', 'success'));
+        } else {
+            return redirect()->to('/itens_pedido')->with('msg', msg('Erro ao atualizar o pedido!', 'danger'));
+        }
+    }
+
+
 }

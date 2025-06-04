@@ -43,7 +43,7 @@
             <div class="input-group" style="max-width: 200px;">
                 <button type="button" class="btn btn-outline-secondary" onclick="alterarQuantidade(-1)">-</button>
                 <input type="number" class="form-control text-center" name="quantidade" id="quantidade" min="1"
-                    value="<?= $itens_pedido->quantidade ?? '1'; ?>" required>
+                    value="1" value="<?= $itens_pedido->quantidade ?? 1; ?>" required>
                 <button type="button" class="btn btn-outline-secondary" onclick="alterarQuantidade(1)">+</button>
             </div>
         </div>

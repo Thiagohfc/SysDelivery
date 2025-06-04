@@ -150,3 +150,4 @@ $routes->get('/itens_pedido/edit/(:any)', 'ItensPedido::edit/$1');
 $routes->post('/itens_pedido/update', 'ItensPedido::update');
 $routes->get('/itens_pedido/delete/(:any)', 'ItensPedido::delete/$1');
 $routes->post('/itens_pedido/search', 'ItensPedido::search');
+$routes->get('/itens_pedido/finalizar/(:num)', 'ItensPedido::finalizar_pedido/$1');
