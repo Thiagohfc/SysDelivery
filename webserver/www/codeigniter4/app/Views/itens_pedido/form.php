@@ -8,7 +8,7 @@ session();
 
 ?>
 
-<?= $this->extend('Templates_user') ?>
+<?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
 
 <div class="container pt-4 pb-5 bg-light">
