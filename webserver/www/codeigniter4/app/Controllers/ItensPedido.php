@@ -8,6 +8,8 @@ use App\Models\ItensPedido as Itens_Pedido;
 use App\Models\Pedidos as Pedidos;
 use App\Models\Produtos as Produtos;
 
+helper('functions');
+
 class ItensPedido extends BaseController
 {
     protected $itens_Pedido;
@@ -21,12 +23,17 @@ class ItensPedido extends BaseController
     }
     public function index()
     {
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('itens_pedido');
+        $builder->select('itens_pedido.*, produtos.produtos_nome AS produto_nome, produtos.produtos_preco_venda');
+        $builder->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id', 'left');
+        $builder->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id', 'left');
+        $query = $builder->get();
+
         $data['title'] = 'Itens do Pedido';
-        $data['itens_pedido'] = $this->itens_Pedido
-            ->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id')
-            ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
-            ->select('itens_pedido.*, pedidos.*, produtos.produtos_nome, produtos.produtos_preco')
-            ->findAll();
+        $data['itens_pedido'] = $query->getResult();
+
         return view('itens_pedido/index', $data);
     }
 
@@ -65,7 +72,8 @@ class ItensPedido extends BaseController
             'preco_unitario' => $this->request->getPost('preco_unitario')
         ]);
 
-        return redirect()->to('/itens_pedido')->with('msg', msg('Item do pedido cadastrado com sucesso!', 'success'));
+        return redirect()->to('/itens_pedido')->with('msg', '<div class="alert alert-success">Item do pedido cadastrado com sucesso!</div>');
+
     }
 
     public function edit($id)
@@ -109,9 +117,13 @@ class ItensPedido extends BaseController
 
     public function delete($id)
     {
+        if (!$this->itens_Pedido->find($id)) {
+            return redirect()->to('/itens_pedido')->with('msg', msg('Item não encontrado!', 'warning'));
+        }
         $this->itens_Pedido->delete($id);
         return redirect()->to('/itens_pedido')->with('msg', msg('Item do pedido deletado com sucesso!', 'success'));
     }
+
 
     public function search()
     {
@@ -120,7 +132,7 @@ class ItensPedido extends BaseController
         $data['itens_pedido'] = $this->itens_Pedido
             ->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id')
             ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
-            ->select('itens_pedido.*, pedidos.*, produtos.produtos_nome, produtos.produtos_preco')
+            ->select('itens_pedido.*, pedidos.pedidos_id as pedido_id, produtos.produtos_nome, produtos.produtos_preco_venda')
             ->like('produtos.produtos_nome', $search)
             ->orLike('pedidos.pedidos_id', $search)
             ->findAll();
