@@ -113,4 +113,51 @@ class Estoques extends BaseController
             'msg' => msg("Dados encontrados: {$total}", 'success')
         ]);
     }
+    <?php
+
+    public function saida_estoque($quantidade_saida, $produto_id)
+    {
+        $validationData = [
+            'produto_id' => $produto_id,
+            'quantidade' => $quantidade_saida
+        ];
+    
+        $validationRules = [
+            'produto_id' => 'required|is_natural_no_zero',
+            'quantidade' => 'required|integer|greater_than[0]'
+        ];
+    
+        $validation = \Config\Services::validation();
+    
+        if (!$validation->setRules($validationRules)->run($validationData)) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+    
+        $itemEstoque = $this->estoque->where('produto_id', $produto_id)->first();
+    
+        if (!$itemEstoque) {
+            return redirect()->back()->withInput()->with('error', 'Produto não encontrado no estoque.');
+        }
+    
+        $quantidadeAtual = (int) $itemEstoque['quantidade']; 
+    
+        if ($quantidadeAtual < $quantidade_saida) {
+            $errorMessage = "Estoque insuficiente para o produto ID {$produto_id}. Quantidade disponível: {$quantidadeAtual}, Saída solicitada: {$quantidade_saida}.";
+            return redirect()->back()->withInput()->with('error', $errorMessage);
+        }
+    
+        $novaQuantidade = $quantidadeAtual - $quantidade_saida;
+    
+        $updateResult = $this->estoque
+                             ->where('produto_id', $produto_id)
+                             ->set(['quantidade' => $novaQuantidade])
+                             ->update();
+    
+        if ($updateResult) {
+            session()->setFlashdata('message', 'Saída de estoque registrada com sucesso!');
+            return redirect()->to(base_url('admin/estoque')); 
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Falha ao atualizar o estoque. Nenhuma alteração foi feita ou ocorreu um erro. Verifique os logs.');
+        }
+    }
 }
