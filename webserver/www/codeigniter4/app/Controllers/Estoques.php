@@ -137,7 +137,7 @@ class Estoques extends BaseController
             return redirect()->back()->withInput()->with('error', 'Produto não encontrado no estoque.');
         }
     
-        $quantidadeAtual = (int) $itemEstoque['quantidade']; 
+        $quantidadeAtual = $itemEstoque -> quantidade; 
     
         if ($quantidadeAtual < $quantidade_saida) {
             $errorMessage = "Estoque insuficiente para o produto ID {$produto_id}. Quantidade disponível: {$quantidadeAtual}, Saída solicitada: {$quantidade_saida}.";
@@ -147,7 +147,7 @@ class Estoques extends BaseController
         $novaQuantidade = $quantidadeAtual - $quantidade_saida;
     
         $updateResult = $this->estoque
-                             ->where('produto_id', $produto_id)
+                             ->where('estoques_id', $itemEstoque->estoques_id)
                              ->set(['quantidade' => $novaQuantidade])
                              ->update();
     
