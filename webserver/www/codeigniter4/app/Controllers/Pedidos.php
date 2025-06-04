@@ -52,7 +52,7 @@ class Pedidos extends BaseController
             $data['itensPedido'] = $this->itensPedido
                 ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
                 ->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id')
-                ->select('itens_pedido.*, pedidos.*, produtos.produtos_nome')
+                ->select('itens_pedido.*, pedidos.*, produtos.*')
                 ->where('pedidos.clientes_id', $cliente->clientes_id)->findAll();
                 return view('pedidos/index', $data);
         }
@@ -273,13 +273,14 @@ class Pedidos extends BaseController
         $search = $this->request->getPost('pesquisar');
         $data['pedidos'] = $this->pedidos
             ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
-            ->like('clientes.cliente_nome', $search)
+            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+            ->like('usuarios.usuarios_nome', $search)
             ->orLike('pedidos.status', $search)
             ->findAll();
         
         $total = count($data['pedidos']);
         $data['msg'] = msg("Dados encontrados: {$total}", 'success');
-        $data['title'] = 'Pedidos';
+        $data['title'] = 'Meus Pedidos';
         return view('pedidos/index', $data);
     }
 }
