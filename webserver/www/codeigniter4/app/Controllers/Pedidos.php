@@ -27,14 +27,35 @@ class Pedidos extends BaseController
 
     public function index(): string
     {
-        $data['title'] = 'Pedidos';
-        $data['pedidos'] = $this->pedidos
-            ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
-            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
-            ->select('pedidos.*, clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
-            ->findAll();
+        $data = $this->request->getPost();
 
-        return view('pedidos/index', $data);
+        $session = session();
+        $usuarioId = $session->get('login')->usuarios_id;
+        $usuarioNivel = $session->get('login')->usuarios_nivel;
+
+        $cliente = $this->clientes->select('clientes_id')->where('clientes_usuario_id', $usuarioId)->first();
+
+        if (!$cliente) {
+            return redirect()->back()->with('errors', ['Cliente não encontrado para o usuário logado.']);
+        }
+
+        if($usuarioNivel == 2){
+            $data['title'] = 'Pedidos';
+            $data['pedidos'] = $this->pedidos
+                ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
+                ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+                ->select('pedidos.*, clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                ->findAll();
+                return view('pedidos/index', $data);
+        }elseif($usuarioNivel == 0){
+            $data['title'] = 'Meus Pedidos';
+            $data['itensPedido'] = $this->itensPedido
+                ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
+                ->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id')
+                ->select('itens_pedido.*, pedidos.*, produtos.produtos_nome')
+                ->where('pedidos.clientes_id', $cliente->clientes_id)->findAll();
+                return view('pedidos/index', $data);
+        }
     }
 
     public function new(): string

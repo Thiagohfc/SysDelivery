@@ -136,6 +136,14 @@
                     </a>
                 </li>
 
+                <!-- Link Itens Pedidos-->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url('itens_pedido') ?>">
+                        <i class="bi bi-cart"></i>
+                        Itens Pedidos
+                    </a>
+                </li>
+
             </ul>
 
         </div>
