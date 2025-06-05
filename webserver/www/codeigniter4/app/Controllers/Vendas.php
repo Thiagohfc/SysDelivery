@@ -1,18 +1,29 @@
 <?php
 
 namespace App\Controllers;
+
+use App\Models\ItensPedido;
 use App\Models\Vendas as Venda;
 use App\Models\Pedidos as Pedido;
+
 
 class Vendas extends BaseController
 {
     private $vendas;
     private $pedidos;
+    private $itensPedido;
+
+    private $estoquesController;
+
+    private $db;
 
     public function __construct()
     {
         $this->vendas = new Venda();
         $this->pedidos = new Pedido();
+        $this->estoquesController = new Estoques();
+        $this->itensPedido = new ItensPedido();
+        $this->db = \Config\Database::connect();
         helper('functions');
     }
 
@@ -58,13 +69,25 @@ class Vendas extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $this->vendas->save([
-            'pedidos_id' => $this->request->getPost('pedidos_id'),
-            'data_venda' => date('Y-m-d H:i:s'),
-            'forma_pagamento' => $this->request->getPost('forma_pagamento'),
-            'valor_total' => moedaDolar($this->request->getPost('valor_total')),
-            'observacoes' => $this->request->getPost('observacoes')
-        ]);
+        $this->db->transStart();
+        
+        try{
+            $itemPedido = $this->itensPedido->select()
+                                        ->where('pedidos_id', $this->request->getPost('pedidos_id'))
+                                        ->first();
+            $this->estoquesController->saida_estoque($itemPedido->quantidade, $itemPedido->produtos_id);
+            $this->vendas->save([
+                'pedidos_id' => $this->request->getPost('pedidos_id'),
+                'data_venda' => date('Y-m-d H:i:s'),
+                'forma_pagamento' => $this->request->getPost('forma_pagamento'),
+                'valor_total' => moedaDolar($this->request->getPost('valor_total')),
+                'observacoes' => $this->request->getPost('observacoes')
+            ]);
+        }catch(\Exception $e){
+            $this->db->transRollback();
+        }
+
+        $this->db->transCommit();
 
         return redirect()->to('/vendas')->with('msg', msg('Venda cadastrada com sucesso!', 'success'));
     }

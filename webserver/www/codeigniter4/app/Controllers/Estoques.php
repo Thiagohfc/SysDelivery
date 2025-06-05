@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Estoques as ModelEstoques;
 use App\Models\Produtos as ModelProdutos;
+use CodeIgniter\HTTP\Exceptions\BadRequestException;
 
 class Estoques extends BaseController
 {
@@ -128,34 +129,33 @@ class Estoques extends BaseController
         $validation = \Config\Services::validation();
     
         if (!$validation->setRules($validationRules)->run($validationData)) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            throw new BadRequestException($validation->getErrors()[0]);
         }
     
-        $itemEstoque = $this->estoque->where('produto_id', $produto_id)->first();
+        $itemEstoque = $this->estoque->select()->where('produto_id', $produto_id)->first();
     
         if (!$itemEstoque) {
-            return redirect()->back()->withInput()->with('error', 'Produto não encontrado no estoque.');
+            throw new \Exception('Produto não encontrado no estoque.', 404);
         }
     
         $quantidadeAtual = $itemEstoque -> quantidade; 
     
         if ($quantidadeAtual < $quantidade_saida) {
             $errorMessage = "Estoque insuficiente para o produto ID {$produto_id}. Quantidade disponível: {$quantidadeAtual}, Saída solicitada: {$quantidade_saida}.";
-            return redirect()->back()->withInput()->with('error', $errorMessage);
+            throw new BadRequestException($errorMessage);
         }
     
         $novaQuantidade = $quantidadeAtual - $quantidade_saida;
     
-        $updateResult = $this->estoque
+        $updateResult = $this->estoque->select()
                              ->where('estoques_id', $itemEstoque->estoques_id)
                              ->set(['quantidade' => $novaQuantidade])
                              ->update();
     
         if ($updateResult) {
             session()->setFlashdata('message', 'Saída de estoque registrada com sucesso!');
-            return redirect()->to(base_url('admin/estoque')); 
         } else {
-            return redirect()->back()->withInput()->with('error', 'Falha ao atualizar o estoque. Nenhuma alteração foi feita ou ocorreu um erro. Verifique os logs.');
+            throw new BadRequestException('Falha ao atualizar o estoque. Nenhuma alteração foi feita ou ocorreu um erro. Verifique os logs.');
         }
     }
 }
