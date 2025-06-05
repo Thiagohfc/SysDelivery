@@ -38,7 +38,7 @@ class Estoques extends Migration
             ],
             ]);
             $this->forge->addKey('estoques_id', true);
-            $this->forge->addForeignKey('produto_id', 'produtos', 'produtos_id', 'CASCADE', 'RESTRICT');
+            $this->forge->addForeignKey('produto_id', 'produtos', 'produtos_id', 'CASCADE', 'CASCADE');
             $this->forge->createTable('estoques');
     }
 
