@@ -52,9 +52,9 @@ class Entregas extends Migration
             ],
             ]);
             $this->forge->addKey('entregas_id', true);
-            $this->forge->addForeignKey('funcionario_id', 'funcionarios', 'funcionarios_id', 'CASCADE', 'RESTRICT');
-            $this->forge->addForeignKey('endereco_id', 'enderecos', 'enderecos_id', 'CASCADE', 'RESTRICT');
-            $this->forge->addForeignKey('pedido_id', 'pedidos', 'pedidos_id', 'CASCADE', 'RESTRICT');
+            $this->forge->addForeignKey('funcionario_id', 'funcionarios', 'funcionarios_id', 'CASCADE', 'CASCADE');
+            $this->forge->addForeignKey('endereco_id', 'enderecos', 'enderecos_id', 'CASCADE', 'CASCADE');
+            $this->forge->addForeignKey('pedido_id', 'pedidos', 'pedidos_id', 'CASCADE', 'CASCADE');
             $this->forge->createTable('entregas');
     }
 

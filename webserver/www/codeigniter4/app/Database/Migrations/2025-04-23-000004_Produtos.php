@@ -49,7 +49,7 @@ class Produtos extends Migration
             'categorias',
             'categorias_id',
             'CASCADE',  // ON UPDATE
-            'RESTRICT'  // ON DELETE
+            'CASCADE'  // ON DELETE
         );
 
         $this->forge->createTable('produtos');
