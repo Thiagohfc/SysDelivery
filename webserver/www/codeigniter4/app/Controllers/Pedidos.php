@@ -53,9 +53,13 @@ class Pedidos extends BaseController
                 ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
                 ->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id')
                 ->select('itens_pedido.*, pedidos.*, produtos.*')
-                ->where('pedidos.clientes_id', $cliente->clientes_id)->findAll();
-                return view('pedidos/index', $data);
+                ->where('pedidos.clientes_id', $cliente->clientes_id)
+                ->orderBy('itens_pedido.pedidos_id', 'ASC')
+                ->orderBy('itens_pedido.itens_pedido_id', 'ASC')
+                ->findAll();
+            return view('pedidos/index', $data);
         }
+        return redirect()->to('/')->with('msg', msg('Nível de usuário não autorizado para acessar os pedidos.', 'danger'));
     }
 
     public function new(): string
@@ -89,14 +93,13 @@ class Pedidos extends BaseController
             ->select('itens_pedido.*, produtos.produtos_nome, produtos.produtos_preco_venda')
             ->findAll();
 
-        $data['pedidos'] = (object) [
-            'clientes_id' => '',
-            'data_pedido' => date('Y-m-d\TH:i'),
-            'status' => 'aguardando',
-            'observacoes' => '',
-            'total_pedido' => '0.00',
-            'pedidos_id' => ''
-        ];
+        $data['pedidos'] = $this->pedidos
+            ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
+            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+            ->select('pedidos.*, clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+            ->orderBy('pedidos.pedidos_id', 'ASC')
+            ->findAll();
+
 
         return view('pedidos/form', $data);
     }
