@@ -12,10 +12,13 @@ class Estoques extends BaseController
     private $estoque;
     private $produto;
 
+    private $db;
+
     public function __construct()
     {
         $this->estoque = new ModelEstoques();
         $this->produto = new ModelProdutos();
+        $this->db = \Config\Database::connect();
         helper('functions');  
     }
 
@@ -127,20 +130,24 @@ class Estoques extends BaseController
         ];
     
         $validation = \Config\Services::validation();
+        $this->db->transStart();
     
         if (!$validation->setRules($validationRules)->run($validationData)) {
+            $this->db->transRollback();
             throw new BadRequestException($validation->getErrors()[0]);
         }
     
         $itemEstoque = $this->estoque->select()->where('produto_id', $produto_id)->first();
     
         if (!$itemEstoque) {
+            $this->db->transRollback();
             throw new \Exception('Produto não encontrado no estoque.', 404);
         }
     
         $quantidadeAtual = $itemEstoque -> quantidade; 
     
         if ($quantidadeAtual < $quantidade_saida) {
+            $this->db->transRollback();
             $errorMessage = "Estoque insuficiente para o produto ID {$produto_id}. Quantidade disponível: {$quantidadeAtual}, Saída solicitada: {$quantidade_saida}.";
             throw new BadRequestException($errorMessage);
         }
@@ -155,6 +162,7 @@ class Estoques extends BaseController
         if ($updateResult) {
             session()->setFlashdata('message', 'Saída de estoque registrada com sucesso!');
         } else {
+            $this->db->transRollback();
             throw new BadRequestException('Falha ao atualizar o estoque. Nenhuma alteração foi feita ou ocorreu um erro. Verifique os logs.');
         }
     }

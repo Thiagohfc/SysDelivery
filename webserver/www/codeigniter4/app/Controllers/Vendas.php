@@ -72,10 +72,14 @@ class Vendas extends BaseController
         $this->db->transStart();
         
         try{
-            $itemPedido = $this->itensPedido->select()
-                                        ->where('pedidos_id', $this->request->getPost('pedidos_id'))
-                                        ->first();
-            $this->estoquesController->saida_estoque($itemPedido->quantidade, $itemPedido->produtos_id);
+            $itemPedido = $this->itensPedido->select('*')
+                                        ->where('pedidos_id', $this->request->getPost('pedidos_id'));
+            $quantidadeItensPedido=0; 
+            foreach ($itemPedido as $item) {
+                $quantidadeItensPedido+=$item->quantidadeItensPedido;
+            }
+            $this->estoquesController->saida_estoque($quantidadeItensPedido, $this->request->getPost('pedidos_id'));
+            
             $this->vendas->save([
                 'pedidos_id' => $this->request->getPost('pedidos_id'),
                 'data_venda' => date('Y-m-d H:i:s'),
@@ -85,6 +89,7 @@ class Vendas extends BaseController
             ]);
         }catch(\Exception $e){
             $this->db->transRollback();
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $this->db->transCommit();
