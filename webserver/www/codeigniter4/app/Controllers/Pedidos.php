@@ -36,7 +36,11 @@ class Pedidos extends BaseController
         $cliente = $this->clientes->select('clientes_id')->where('clientes_usuario_id', $usuarioId)->first();
 
         if (!$cliente) {
-            return redirect()->back()->with('errors', ['Cliente não encontrado para o usuário logado.']);
+            $data['errors'] = ['Cliente não encontrado para o usuário logado.'];
+            $data['title'] = 'Login';
+
+            return view('login', $data);
+
         }
 
         if($usuarioNivel == 2){
@@ -133,7 +137,10 @@ class Pedidos extends BaseController
         $cliente = $this->clientes->select('clientes_id')->where('clientes_usuario_id', $usuarioId)->first();
 
         if (!$cliente) {
-            return redirect()->back()->with('errors', ['Cliente não encontrado para o usuário logado.']);
+            $data['errors'] = ['Cliente não encontrado para o usuário logado.'];
+            $data['title'] = 'Login';
+
+            return view('login', $data);
         }
 
         if (!$this->validate([
