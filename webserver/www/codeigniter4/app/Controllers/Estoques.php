@@ -1,10 +1,6 @@
 <?php
 
 namespace App\Controllers;
-class ItemDeSaida {
-    public $produto_id;
-    public $quantidadeFinal;
-}
 
 use App\Controllers\BaseController;
 use App\Models\Estoques as ModelEstoques;
@@ -121,17 +117,16 @@ class Estoques extends BaseController
             'msg' => msg("Dados encontrados: {$total}", 'success')
         ]);
     }
-    /**
-     * @param ItemDeSaida[] $itensDeSaida;
-     */
-    public function saida_estoque(array $itensDeSaida)
+    public function saida_estoque($quantidade_saida, $produto_id)
     {
         $validationData = [
-            'itensDeSaida' => $itensDeSaida
+            'produto_id' => $produto_id,
+            'quantidade' => $quantidade_saida
         ];
     
         $validationRules = [
-            'itensDeSaida'=> 'required|array'
+            'produto_id' => 'required|is_natural_no_zero',
+            'quantidade' => 'required|is_natural_no_zero'
         ];
     
         $validation = \Config\Services::validation();
@@ -140,12 +135,16 @@ class Estoques extends BaseController
             throw new BadRequestException($validation->getErrors()[0]);
         }
     
-        $itemEstoque = $this->estoque->select()->where('produto_id', $produto_id)->first();
-    
+        $itemEstoque = $this->estoque->select('*')
+                                        ->where('produto_id', $produto_id)
+                                        ->first();
+        
         if (!$itemEstoque) {
-            throw new \Exception('Produto não encontrado no estoque.', 404);
+            throw new \Exception('Produto não encontrado no estoque ou com estoque zerado.', 404);
         }
-    
+        log_message('error', '{itemEstoque}', [
+            'itemEstoque'=> print_r($itemEstoque, true)
+        ]);
         $quantidadeAtual = $itemEstoque -> quantidade; 
     
         if ($quantidadeAtual < $quantidade_saida) {
@@ -154,16 +153,15 @@ class Estoques extends BaseController
         }
     
         $novaQuantidade = $quantidadeAtual - $quantidade_saida;
-    
-        $updateResult = $this->estoque->select()
+        
+        $updateResult = $this->estoque
                              ->where('estoques_id', $itemEstoque->estoques_id)
-                             ->set(['quantidade' => $novaQuantidade])
+                             ->set('quantidade', $novaQuantidade)
                              ->update();
     
         if ($updateResult) {
             session()->setFlashdata('message', 'Saída de estoque registrada com sucesso!');
-            $this->db->transComplete();
-            $this->db->transCommit();
+            return redirect()->to('/vendas')->with('msg', msg('Venda cadastrada com sucesso!', 'success'));
         } else {
             throw new BadRequestException('Falha ao atualizar o estoque. Nenhuma alteração foi feita ou ocorreu um erro. Verifique os logs.');
         }

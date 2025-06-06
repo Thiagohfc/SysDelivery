@@ -69,16 +69,18 @@ class Vendas extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         
-        $this->db->transStart();
-        
         try{
-            $itemPedido = $this->itensPedido->select('itensPedido.produtos_id')
-                                            ->selectSum('itensPedido.quantidade')
-                                            ->where('pedidos_id', $this->request->getPost('pedidos_id'))
-                                            ->groupBy('produtos_id');
-                        
-            foreach ($itemPedido as $item) {
-                $this->estoquesController->saida_estoque($item->quantidade, $item->produtos_id);
+            $this->db->transStart();
+            $query = $this->itensPedido->select('produtos_id')
+                           ->selectSum('quantidade', 'quantidade_total') 
+                           ->where('pedidos_id', $this->request->getPost('pedidos_id'))
+                           ->groupBy('produtos_id')
+                           ->get();
+            $itemDoPedido = $query->getResult();
+            
+                    
+            foreach ($itemDoPedido as $item) {
+                $this->estoquesController->saida_estoque($item->quantidade_total, $item->produtos_id);
             }      
 
             $this->vendas->save([
@@ -88,12 +90,14 @@ class Vendas extends BaseController
                 'valor_total' => moedaDolar($this->request->getPost('valor_total')),
                 'observacoes' => $this->request->getPost('observacoes')
             ]);
+            $this->db->transCommit();
+            $this->db->transComplete();
+
+
         }catch(\Exception $e){
             $this->db->transRollback();
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            throw $e;
         }
-        $this->db->transComplete();
-        $this->db->transCommit();
 
         return redirect()->to('/vendas')->with('msg', msg('Venda cadastrada com sucesso!', 'success'));
     }
