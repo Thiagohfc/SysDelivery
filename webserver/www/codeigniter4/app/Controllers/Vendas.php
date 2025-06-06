@@ -68,18 +68,17 @@ class Vendas extends BaseController
         ])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-
+        
         $this->db->transStart();
         
         try{
-            $itemPedido = $this->itensPedido->select('*')
-                                        ->where('pedidos_id', $this->request->getPost('pedidos_id'));
-            $quantidadeItensPedido=0; 
+            $itemPedido = $this->itensPedido->select()->where('pedidos_id', $this->request->getPost('pedidos_id'));
+            $quantidadeItensPedido=0;
             foreach ($itemPedido as $item) {
                 $quantidadeItensPedido+=$item->quantidadeItensPedido;
-            }
-            $this->estoquesController->saida_estoque($quantidadeItensPedido, $this->request->getPost('pedidos_id'));
-            
+                $this->estoquesController->saida_estoque($quantidadeItensPedido, $item->produtos_id);
+
+            }            
             $this->vendas->save([
                 'pedidos_id' => $this->request->getPost('pedidos_id'),
                 'data_venda' => date('Y-m-d H:i:s'),
