@@ -72,13 +72,15 @@ class Vendas extends BaseController
         $this->db->transStart();
         
         try{
-            $itemPedido = $this->itensPedido->select()->where('pedidos_id', $this->request->getPost('pedidos_id'));
-            $quantidadeItensPedido=0;
+            $itemPedido = $this->itensPedido->select('itensPedido.produtos_id')
+                                            ->selectSum('itensPedido.quantidade')
+                                            ->where('pedidos_id', $this->request->getPost('pedidos_id'))
+                                            ->groupBy('produtos_id');
+                        
             foreach ($itemPedido as $item) {
-                $quantidadeItensPedido+=$item->quantidadeItensPedido;
-                $this->estoquesController->saida_estoque($quantidadeItensPedido, $item->produtos_id);
+                $this->estoquesController->saida_estoque($item->quantidade, $item->produtos_id);
+            }      
 
-            }            
             $this->vendas->save([
                 'pedidos_id' => $this->request->getPost('pedidos_id'),
                 'data_venda' => date('Y-m-d H:i:s'),
@@ -90,7 +92,7 @@ class Vendas extends BaseController
             $this->db->transRollback();
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-
+        $this->db->transComplete();
         $this->db->transCommit();
 
         return redirect()->to('/vendas')->with('msg', msg('Venda cadastrada com sucesso!', 'success'));

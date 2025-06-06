@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Controllers;
+class ItemDeSaida {
+    public $produto_id;
+    public $quantidadeFinal;
+}
 
 use App\Controllers\BaseController;
 use App\Models\Estoques as ModelEstoques;
@@ -117,37 +121,34 @@ class Estoques extends BaseController
             'msg' => msg("Dados encontrados: {$total}", 'success')
         ]);
     }
-    public function saida_estoque($quantidade_saida, $produto_id)
+    /**
+     * @param ItemDeSaida[] $itensDeSaida;
+     */
+    public function saida_estoque(array $itensDeSaida)
     {
         $validationData = [
-            'produto_id' => $produto_id,
-            'quantidade' => $quantidade_saida
+            'itensDeSaida' => $itensDeSaida
         ];
     
         $validationRules = [
-            'produto_id' => 'required|is_natural_no_zero',
-            'quantidade' => 'required|integer|greater_than[0]'
+            'itensDeSaida'=> 'required|array'
         ];
     
         $validation = \Config\Services::validation();
-        $this->db->transStart();
     
         if (!$validation->setRules($validationRules)->run($validationData)) {
-            $this->db->transRollback();
             throw new BadRequestException($validation->getErrors()[0]);
         }
     
         $itemEstoque = $this->estoque->select()->where('produto_id', $produto_id)->first();
     
         if (!$itemEstoque) {
-            $this->db->transRollback();
             throw new \Exception('Produto não encontrado no estoque.', 404);
         }
     
         $quantidadeAtual = $itemEstoque -> quantidade; 
     
         if ($quantidadeAtual < $quantidade_saida) {
-            $this->db->transRollback();
             $errorMessage = "Estoque insuficiente para o produto ID {$produto_id}. Quantidade disponível: {$quantidadeAtual}, Saída solicitada: {$quantidade_saida}.";
             throw new BadRequestException($errorMessage);
         }
@@ -161,8 +162,9 @@ class Estoques extends BaseController
     
         if ($updateResult) {
             session()->setFlashdata('message', 'Saída de estoque registrada com sucesso!');
+            $this->db->transComplete();
+            $this->db->transCommit();
         } else {
-            $this->db->transRollback();
             throw new BadRequestException('Falha ao atualizar o estoque. Nenhuma alteração foi feita ou ocorreu um erro. Verifique os logs.');
         }
     }
