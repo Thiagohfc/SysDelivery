@@ -31,6 +31,12 @@ session();
         </button>
     </form>
 
+    <br>
+
+    <a href="<?= base_url('relatorios/8') ?>" target="_blank" class="btn btn-primary mb-3">
+        <i class="fas fa-file-pdf"></i> Relatório de Itens de Pedido
+    </a>
+
     <?php
     $current_pedido_id = null;
     $total_geral_pedidos = 0;

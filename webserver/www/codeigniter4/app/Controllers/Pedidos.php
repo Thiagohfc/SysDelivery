@@ -35,14 +35,6 @@ class Pedidos extends BaseController
 
         $cliente = $this->clientes->select('clientes_id')->where('clientes_usuario_id', $usuarioId)->first();
 
-        if (!$cliente) {
-            $data['errors'] = ['Cliente não encontrado para o usuário logado.'];
-            $data['title'] = 'Login';
-
-            return view('login', $data);
-
-        }
-
         if($usuarioNivel == 2){
             $data['title'] = 'Pedidos';
             $data['pedidos'] = $this->pedidos
