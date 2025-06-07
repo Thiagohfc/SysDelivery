@@ -22,17 +22,15 @@ class Home extends BaseController
     public function index()
     {   
         $data['titulo'] = "Home";
-        $categorias = $this->categorias->findAll();
-        $data['all_produtos'] = []; 
-
-        for($i=0; $i < count($categorias);$i++){
-            $categoria = array(
-                "categorias_id" => $categorias[$i]->categorias_id,
-                "categorias_nome" => $categorias[$i]->categorias_nome,
-                "produtos" => $this->produtos->join('imgprodutos', 'imgprodutos_produtos_id = produtos_id')->join('categorias', 'produtos_categorias_id = categorias_id')->where('categorias_id', (int) $categorias[$i]->categorias_id)->find()
-            );
-            $data['all_produtos'][$i] = $categoria;
-        };
+        $data['produtos'] = $this->produtos
+            ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+            ->select('produtos.*, categorias.categorias_nome')
+            ->findAll();
+        $data['imgprodutos'] = $this->imagens
+            ->join('produtos', 'produtos.produtos_id = imgprodutos_produtos_id')
+            ->select('imgprodutos.*, produtos.*')
+            ->findAll();
+        $data['categorias'] = $this->categorias->findAll();
         return view('home/index',$data);
     }
 

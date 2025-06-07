@@ -5,35 +5,13 @@
         $login = $_SESSION['login'];
         if($login->usuarios_nivel == 0){
     
-?>
-<?= $this->extend('Templates_user') ?>
-<?= $this->section('content') ?>
-
-
-    <div class="container pt-4 pb-5 bg-light">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Usuário</a></li>
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>     
-            <span class="breadcrumb-text">Seja bem vindo <?= $login->usuarios_nome ?></span>
-        </nav>
-        <h2 class="border-bottom border-2 border-primary">
-            Usuário
-        </h2>
-        <p></p>
-
-        <p>
-            <?php
-                print_r($login); 
             ?>
-        </p>
-        </div>
+            <?= $this->extend('Templates_user') ?>
+            <?= $this->section('content') ?>
+            <?= $this->include('Home/index') ?>
+            <?= $this->endSection() ?>
 
-<?= $this->endSection() ?>
-
-<?php 
+            <?php 
         }else{
 
             $data['msg'] = msg("Sem permissão de acesso!","danger");

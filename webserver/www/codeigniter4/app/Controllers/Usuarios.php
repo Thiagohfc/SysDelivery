@@ -2,12 +2,15 @@
 
 namespace App\Controllers;
 use App\Models\Usuarios as Usuarios_model;
+use App\Models\Enderecos as Enderecos_model;
 
 class Usuarios extends BaseController
 {
     private $usuarios;
+    private $enderecos;
     public function __construct(){
         $this->usuarios = new Usuarios_model();
+        $this->enderecos = new Enderecos_model();
         $data['title'] = 'Usuarios';
         helper('functions');
     }
@@ -234,6 +237,18 @@ class Usuarios extends BaseController
         return view('usuarios/index',$data);
     }
 
-
+    public function perfil(): string
+    {
+        if(!isset($_REQUEST['usuarios_id']) OR $_REQUEST['usuarios_id'] == ''){
+            $data['msg'] = msg('Usuário não encontrado!','danger');
+            return view('usuarios/perfil',$data);
+        }
+        $data['enderecos'] = $this->enderecos
+        ->join('usuarios', 'usuarios.usuarios_id = enderecos_usuarios_id')
+        ->select('enderecos.*, usuarios.*')
+        ->where('enderecos_usuarios_id', (int) $_REQUEST['usuarios_id'])->findAll();
+        $data['title'] = 'Meu Perfil';
+        return view('usuarios/perfil',$data);
+    }
 
 }

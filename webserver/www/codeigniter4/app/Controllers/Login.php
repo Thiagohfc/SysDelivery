@@ -2,16 +2,22 @@
 
 namespace App\Controllers;
 use App\Models\Usuarios as Usuarios_login;
+use App\Models\Produtos as Produtos_login;
+use App\Models\Imgprodutos as Imagem_produtos_login;
 
 class Login extends BaseController
 {
     private $data;
     private $usuarios;
+    private $produtos;
+    private $imagem_produtos;
     public $session;
     public function __construct(){
         helper('functions');
         $this->session = \Config\Services::session();
         $this->usuarios = new Usuarios_login();
+        $this->produtos = new Produtos_login();
+        $this->imagem_produtos = new Imagem_produtos_login();
         $this->data['title'] = 'Login';
         $this->data['msg'] = ''; 
     }
@@ -24,9 +30,12 @@ class Login extends BaseController
     {
         $login = $_REQUEST['login'];
         $senha = md5($_REQUEST['senha']);
-        
         $this->data['usuarios'] = $this->usuarios->where('usuarios_cpf',$login)->
         orWhere('usuarios_email',$login)->where('usuarios_senha',$senha)->find();
+        $this->data['produtos'] = $this->produtos->findAll();
+        $this->data['imgprodutos'] = $this->imagem_produtos
+        ->join('produtos', 'produtos.produtos_id = imgprodutos_produtos_id')
+        ->select('imgprodutos.*, produtos.*')->find();
         if($this->data['usuarios'] == []){
             $this->data['msg'] = msg('O usuário ou a senha são invalidos!','danger');
             return view('login',$this->data);
@@ -74,7 +83,7 @@ class Login extends BaseController
         // //return redirect()->to('home');
         session()->destroy(); // Destrói todos os dados da sessão
         //return redirect('/'); // Redireciona para a página inicial
-        return redirect()->to('/')->with('msg', msg('Usuário desconectado','success'));
+        return redirect()->to('/home')->with('msg', msg('Usuário desconectado','success'));
     }
 
 

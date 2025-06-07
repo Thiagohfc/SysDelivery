@@ -14,7 +14,7 @@
 
                 <!-- Link Home-->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('user') ?>">
+                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('/') ?>">
                         <i class="bi bi-house-fill"></i>
                         Home
                     </a>
@@ -31,6 +31,14 @@
 
 
             <div class="d-flex">
+                <!-- Usuario Logado -->
+                <span class="navbar-text text-white me-3">
+                    <a href="<?php echo base_url('usuarios/perfil') ?>" class="text-white text-decoration-none">
+                        <i class="bi bi-person-circle"></i>
+                        <?php echo session()->get('login')->usuarios_nome; ?>
+                    </a>
+                </span>
+                <!-- Botão Sair -->
                 <a class="btn btn-outline-primary me-2" href="<?php echo base_url('login/logout') ?>">
                     <i class="bi bi-unlock"></i>
                     sair

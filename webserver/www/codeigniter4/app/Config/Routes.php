@@ -43,6 +43,7 @@ $routes->get('/usuarios/edit/(:any)', 'Usuarios::edit/$1');
 $routes->get('/usuarios/delete/(:any)', 'Usuarios::delete/$1');
 $routes->post('/usuarios/update', 'Usuarios::update');
 $routes->post('/usuarios/search', 'Usuarios::search');
+$routes->get('/usuarios/perfil', 'Usuarios::perfil');
 
 $routes->get('/usuarios/edit_senha', 'Usuarios::edit_senha');
 $routes->post('/usuarios/salvar_senha', 'Usuarios::salvar_senha');
