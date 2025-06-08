@@ -46,19 +46,17 @@ session();
             </select>
         </div>
 
-        <!-- SELECT de Endereço -->
+        <!-- Campo de Endereço Fixo -->
         <div class="mb-3">
-            <label for="endereco_id" class="form-label">Endereço</label>
-            <select class="form-select" name="endereco_id" id="endereco_id" required>
-                <option value="">Selecione um endereço</option>
-                <?php foreach ($enderecos as $end): ?>
-                <option value="<?= $end->enderecos_id ?>"
-                    <?= isset($entrega->endereco_id) && $entrega->endereco_id == $end->enderecos_id ? 'selected' : '' ?>>
-                    <?= esc($end->enderecos_rua ?? 'Sem rua') ?>
-                </option>
-                <?php endforeach; ?>
-            </select>
+            <label for="endereco_texto" class="form-label">Endereço</label>
+            <input type="text" class="form-control" id="endereco_texto" value="-- Selecione um pedido --"
+                value="<?= isset($entrega->enderecos_rua) ? esc($entrega->enderecos_rua) : '' ?>" readonly>
+
+            <!-- Campo hidden com ID real do endereço -->
+            <input type="hidden" name="endereco_id" id="endereco_id"
+                value="<?= isset($entrega->endereco_id) ? esc($entrega->endereco_id) : '' ?>">
         </div>
+
 
         <!-- Status da entrega -->
         <div class="mb-3">
@@ -88,6 +86,39 @@ session();
         </div>
     </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('pedido_id').addEventListener('change', function() {
+        const pedidoId = this.value;
+
+        if (!pedidoId) {
+            document.getElementById('endereco_id').value = '';
+            document.getElementById('endereco_texto').value = '';
+            return;
+        }
+
+        fetch(`<?= base_url('entregas/getEnderecoPorPedido/') ?>${pedidoId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.endereco) {
+                    document.getElementById('endereco_id').value = data.endereco.enderecos_id;
+                    document.getElementById('endereco_texto').value =
+                        data.endereco.enderecos_rua + ', ' +
+                        data.endereco.enderecos_numero + ' ' +
+                        (data.endereco.enderecos_complemento || '');
+                } else {
+                    document.getElementById('endereco_id').value = '';
+                    document.getElementById('endereco_texto').value = 'Endereço não encontrado';
+                }
+            }).catch(err => {
+                console.error('Erro ao buscar endereço:', err);
+                document.getElementById('endereco_id').value = '';
+                document.getElementById('endereco_texto').value = 'Erro ao buscar endereço';
+            });
+    });
+});
+</script>
 
 <?= $this->endSection() ?>
 

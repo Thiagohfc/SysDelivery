@@ -135,6 +135,7 @@ $routes->get('/entregas/edit/(:any)', 'Entregas::edit/$1');
 $routes->post('/entregas/update', 'Entregas::update');
 $routes->post('entregas/search', 'Entregas::search');
 $routes->get('/entregas/delete/(:num)', 'Entregas::delete/$1');
+$routes->get('entregas/getEnderecoPorPedido/(:num)', 'Entregas::getEnderecoPorPedido/$1'); 
 
 $routes->get('/estoques', 'Estoques::index');
 $routes->get('/estoques/index', 'Estoques::index');

@@ -7,12 +7,15 @@ use App\Models\Enderecos;
 use App\Models\Entregas as ModelsEntregas;
 use App\Models\Funcionarios;
 use App\Models\Pedidos;
+use CodeIgniter\Database\Config;
+
 
 helper('functions');
 
 class Entregas extends BaseController
 {
     private $entregas;
+    protected $db;
     private $pedido;
     private $endereco;
     private $funcionario;
@@ -23,6 +26,8 @@ class Entregas extends BaseController
         $this->pedido = new Pedidos();
         $this->endereco = new Enderecos();
         $this->funcionario = new Funcionarios();
+        $this->db = Config::connect();
+
     }
 
     private function getEntregasComJoins()
@@ -145,4 +150,29 @@ class Entregas extends BaseController
 
         return view('entregas/index', $data);
     }
+
+    public function getEnderecoPorPedido($pedidoId)
+    {
+        $pedido = $this->db->table('pedidos p')
+            ->select('e.enderecos_id, e.enderecos_rua, e.enderecos_numero, e.enderecos_complemento')
+            ->join('clientes c', 'c.clientes_id = p.clientes_id')
+            ->join('enderecos e', 'e.enderecos_usuario_id = c.clientes_usuario_id')
+            ->where('p.pedidos_id', $pedidoId)
+            ->limit(1)
+            ->get()
+            ->getRow();
+
+        if ($pedido) {
+            return $this->response->setJSON([
+                'success' => true,
+                'endereco' => $pedido
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Endereço não encontrado para o pedido informado.'
+            ]);
+        }
+    }
+
 }
