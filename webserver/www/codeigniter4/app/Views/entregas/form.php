@@ -88,12 +88,12 @@ if (isset($_SESSION['login'])) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('pedido_id').addEventListener('change', function() {
-        const pedidoId = this.value;
+    const pedidoSelect = document.getElementById('pedido_id');
 
+    function buscarEndereco(pedidoId) {
         if (!pedidoId) {
             document.getElementById('endereco_id').value = '';
-            document.getElementById('endereco_texto').value = '';
+            document.getElementById('endereco_texto').value = '-- Selecione um pedido --';
             return;
         }
 
@@ -115,7 +115,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('endereco_id').value = '';
                 document.getElementById('endereco_texto').value = 'Erro ao buscar endereço';
             });
+    }
+
+    pedidoSelect.addEventListener('change', function() {
+        buscarEndereco(this.value);
     });
+    if (pedidoSelect.value) {
+        buscarEndereco(pedidoSelect.value);
+    }
 });
 </script>
 

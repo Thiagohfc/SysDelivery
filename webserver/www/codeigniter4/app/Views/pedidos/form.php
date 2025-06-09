@@ -50,6 +50,10 @@ if(isset($_SESSION['login'])){
                 <option value="em andamento"
                     <?= isset($pedidos->status) && $pedidos->status == 'em andamento' ? 'selected' : '' ?>>Em andamento
                 </option>
+                <option value="em rota de entrega"
+                    <?= isset($pedidos->status) && $pedidos->status == 'em rota de entrega' ? 'selected' : '' ?>>Em rota
+                    de entrega
+                </option>
                 <option value="concluido"
                     <?= isset($pedidos->status) && $pedidos->status == 'concluido' ? 'selected' : '' ?>>Concluído
                 </option>
