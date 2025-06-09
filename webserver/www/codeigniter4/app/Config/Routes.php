@@ -112,6 +112,9 @@ $routes->post('/cadastro/salvar', 'Cadastro::salvar');
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/index', 'Admin::index');
 
+$routes->get('/funcionario', 'Admin::index');
+$routes->get('/funcionario/index', 'Admin::index');
+
 $routes->get('/user', 'User::index');
 $routes->get('/user/index', 'User::index');
 
