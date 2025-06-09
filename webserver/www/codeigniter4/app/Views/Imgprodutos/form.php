@@ -23,21 +23,23 @@
     </div>
 
     <div class="mb-3">
-        <label for="imgprodutos_produtos_id" class="form-label"> Upload </label>
+        <label for="imgprodutos_produtos_id" class="form-label"> Produto </label>
         <select class="form-control" name="imgprodutos_produtos_id" id="imgprodutos_produtos_id">
-
+            <option value="">Selecione um produto</option>
             <?php 
-                    for($i=0; $i < count($produtos);$i++){ 
-                        $selected = '';
-                        if($imgprodutos->imgprodutos_produtos_id == $produtos[$i]->produtos_id){
-                            $selected = 'selected'; 
-                        }
-                    ?>
-            <option <?= $selected; ?> value="<?= $produtos[$i]->produtos_id; ?>">
-                <?= $produtos[$i]->produtos_nome; ?>
-            </option>
-            <?php } ?>
-
+                foreach($produtos as $produto){ 
+                    $selected = '';
+                    if(isset($imgprodutos->imgprodutos_produtos_id) && $imgprodutos->imgprodutos_produtos_id == $produto->produtos_id){
+                        $selected = 'selected'; 
+                    }
+                ?>
+                    <option value="<?= $produtos[$i]->produtos_id; ?>"
+                        <?= ($imgprodutos->imgprodutos_produtos_id == $produtos[$i]->produtos_id) ? 'selected' : ''; ?>>
+                        <?= $produtos[$i]->produtos_nome; ?>
+                    </option>
+                <?php 
+                } 
+            ?>
         </select>
     </div>
 

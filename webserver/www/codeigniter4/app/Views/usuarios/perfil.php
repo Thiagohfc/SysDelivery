@@ -46,7 +46,7 @@
             </a>
         </div>
     </div>
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="card-title">Meus Endereços</h5>

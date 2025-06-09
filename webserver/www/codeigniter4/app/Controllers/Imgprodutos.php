@@ -54,77 +54,98 @@ class Imgprodutos extends BaseController
         ];
 
         if (!$this->validate($validationRule)) {
-            $data = ['errors' => $this->validator->getErrors()];
-            $data['imgprodutos'] = (object) [
-                'imgprodutos_id' => '',
-                'imgprodutos_link' => $_FILES['imgprodutos_link']['name'],
-                'imgprodutos_descricao' => $_REQUEST['imgprodutos_descricao'],
-                'imgprodutos_produtos_id' => $_REQUEST['imgprodutos_produtos_id']
+            $data = [
+                'errors' => $this->validator->getErrors(),
+                'imgprodutos' => (object) [
+                    'imgprodutos_id' => '',
+                    'imgprodutos_link' => $_FILES['imgprodutos_link']['name'] ?? '',
+                    'imgprodutos_descricao' => $this->request->getPost('imgprodutos_descricao'),
+                    'imgprodutos_produtos_id' => $this->request->getPost('imgprodutos_produtos_id'),
+                ],
+                'produtos' => $this->produtos->findAll(),
+                'title' => 'Imgprodutos',
+                'form' => 'Cadastrar',
+                'op' => 'create',
             ];
-            $data['produtos'] = $this->produtos->findAll();
-            $data['title'] = 'Imgprodutos';
-            $data['form'] = 'Cadastrar';
-            $data['op'] = 'create';
-            return view('Imgprodutos/form',$data);
+            return view('Imgprodutos/form', $data);
         }
 
         $img = $this->request->getFile('imgprodutos_link');
 
         if (!$img->hasMoved()) {
             $imgpath = $img->store();
-            $filepath = WRITEPATH . 'uploads/'.$imgpath;
-            $data = ['uploaded_fileinfo' => new File($filepath)];
-            
+            $filepath = WRITEPATH . 'uploads/' . $imgpath;
+
             $subPasta = explode("/", $imgpath);
+            $pastaO = WRITEPATH . 'uploads/' . $subPasta[0] . '/';
+            $pastaD = FCPATH . 'assets/uploads/' . $subPasta[0] . '/';
 
-            $pastaO = WRITEPATH.'/uploads/'.$subPasta[0].'/';
-            $pastaD = 'assets/uploads/'.$subPasta[0].'/';
-
-            if (file_exists($pastaD)) {
-                if(copy($pastaO.$subPasta[1], $pastaD.$subPasta[1])){
-                    $data['msg'] = msg("Sucesso no Upload","success");
-                }else{
-                    $data['msg'] = msg("Falha no Upload","danger");
-                }
-
-            }else {
-                mkdir($pastaD, 0777, TRUE);
-                if(copy($pastaO.$subPasta[1], $pastaD.$subPasta[1])){
-                    $data['msg'] = msg("Sucesso no Upload","success");
-                }else{
-                    $data['msg'] = msg("Falha no Upload","danger");
-                }
+            if (!is_dir($pastaD)) {
+                mkdir($pastaD, 0777, true);
             }
 
-            unlink($pastaO.$subPasta[1]);
+            if (copy($pastaO . $subPasta[1], $pastaD . $subPasta[1])) {
+                $data['msg'] = msg("Sucesso no Upload", "success");
+            } else {
+                $data['msg'] = msg("Falha no Upload", "danger");
+            }
+
+            unlink($pastaO . $subPasta[1]);
 
             $form = [
-                'imgprodutos_link' => 'uploads/'.$imgpath,
-                'imgprodutos_descricao' => $_REQUEST['imgprodutos_descricao'],
-                'imgprodutos_produtos_id' => $_REQUEST['imgprodutos_produtos_id']
+                'imgprodutos_link' => 'uploads/' . $imgpath,
+                'imgprodutos_descricao' => $this->request->getPost('imgprodutos_descricao'),
+                'imgprodutos_produtos_id' => $this->request->getPost('imgprodutos_produtos_id'),
             ];
+
+            // Confere se o produto existe antes de salvar
+            if (!$this->produtos->find($form['imgprodutos_produtos_id'])) {
+                $data['msg'] = msg("Produto inválido!", "danger");
+                $data['produtos'] = $this->produtos->findAll();
+                $data['imgprodutos'] = (object)$form;
+                $data['form'] = 'Cadastrar';
+                $data['title'] = 'Imgprodutos';
+                $data['op'] = 'create';
+                return view('Imgprodutos/form', $data);
+            }
+
             $this->imgprodutos->save($form);
-            
+
             $data['imgprodutos'] = $this->imgprodutos->findAll();
             $data['title'] = 'Imgprodutos';
-            return view('Imgprodutos/index',$data);
+            return view('Imgprodutos/index', $data);
         }
     }
 
     public function delete($id)
     {
-        // carrega o link da imagem a ser deletada
-        $data['clear_img'] = $this->imgprodutos->find(['imgprodutos_id' => (int) $id])[0];
-        $this->imgprodutos->where('imgprodutos_id', (int) $id)->delete();
-        
-        // deletar a imagem da pasta upload
-        unlink('assets/'.$data['clear_img']->imgprodutos->produtos_link);
-        
+        // busca imagem
+        $imagem = $this->imgprodutos->where('imgprodutos_id', (int) $id)->first();
+
+        if (!$imagem) {
+            // Imagem não encontrada
+            $data['msg'] = msg('Imagem não encontrada!','danger');
+            $data['imgprodutos'] = $this->imgprodutos->findAll();
+            $data['title'] = 'Imgprodutos';
+            return view('Imgprodutos/index', $data);
+        }
+
+        // deleta do banco
+        $this->imgprodutos->delete($id);
+
+        // deleta do disco
+        $caminho = 'assets/' . $imagem->imgprodutos_link;
+        if (file_exists($caminho)) {
+            unlink($caminho);
+        }
+
+        // sucesso
         $data['msg'] = msg('Deletado com Sucesso!','success');
         $data['imgprodutos'] = $this->imgprodutos->findAll();
         $data['title'] = 'Imgprodutos';
-        return view('Imgprodutos/index',$data);
+        return view('Imgprodutos/index', $data);
     }
+
 
     public function edit($id)
     {

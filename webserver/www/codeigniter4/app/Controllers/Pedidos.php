@@ -62,42 +62,75 @@ class Pedidos extends BaseController
     {
         $session = session();
         $usuarioId = $session->get('login')->usuarios_id;
+        $usuarioNivel = $session->get('login')->usuarios_nivel;
+        if ($usuarioNivel == 2) {
+            $data['title'] = 'Novo Pedido';
+            $data['op'] = 'create';
+            $data['form'] = 'Cadastrar';
+    
+            $data['clientes'] = $this->clientes
+                ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+                ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+                ->findAll();
+    
+            $data['produtos'] = $this->produtos
+                ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+                ->select('produtos.*, categorias.categorias_nome')
+                ->findAll();
+    
+            $data['enderecos'] = $this->enderecos
+                ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
+                ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
+                ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                ->where('usuarios.usuarios_id', $usuarioId)
+                ->findAll();
+    
+            $data['itens_pedido'] = $this->itensPedido
+                ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
+                ->select('itens_pedido.*, produtos.produtos_nome, produtos.produtos_preco_venda')
+                ->findAll();
+    
+            $data['pedidos'] = $this->pedidos
+                ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
+                ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+                ->select('pedidos.*, clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                ->orderBy('pedidos.pedidos_id', 'ASC')
+                ->findAll();
+    
+    
+            return view('pedidos/form', $data);
+        }elseif ($usuarioNivel == 0) {
+            $cliente = $this->clientes->select('*')->where('clientes_usuario_id', $usuarioId)->first();
 
-        $data['title'] = 'Novo Pedido';
-        $data['op'] = 'create';
-        $data['form'] = 'Cadastrar';
+            if (!$cliente) {
+                $data['errors'] = ['Cliente não encontrado para o usuário logado.'];
+                $data['title'] = 'Login';
 
-        $data['clientes'] = $this->clientes
-            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
-            ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
-            ->findAll();
+                return view('login', $data);
+            }
 
-        $data['produtos'] = $this->produtos
-            ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
-            ->select('produtos.*, categorias.categorias_nome')
-            ->findAll();
+            $data['title'] = 'Meus Pedidos';
+            $data['op'] = 'createPedido';
+            $data['form'] = 'Cadastrar';
+            $data['pedidos'] = null;
+            $data['clientes'] = [$cliente];
+            $data['enderecos'] = $this->enderecos
+                ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
+                ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
+                ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                ->where('usuarios.usuarios_id', $usuarioId)
+                ->findAll();
+            $data['produtos'] = $this->produtos
+                ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+                ->select('produtos.*, categorias.categorias_nome')
+                ->findAll();
+            $data['itensPedido'] = null;
 
-        $data['enderecos'] = $this->enderecos
-            ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
-            ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
-            ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
-            ->where('usuarios.usuarios_id', $usuarioId)
-            ->findAll();
+            return view('pedidos/form', $data);
+        } else {
+            return redirect()->to('/')->with('msg', msg('Nível de usuário não autorizado para acessar os pedidos.', 'danger'));
+        }
 
-        $data['itens_pedido'] = $this->itensPedido
-            ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
-            ->select('itens_pedido.*, produtos.produtos_nome, produtos.produtos_preco_venda')
-            ->findAll();
-
-        $data['pedidos'] = $this->pedidos
-            ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
-            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
-            ->select('pedidos.*, clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
-            ->orderBy('pedidos.pedidos_id', 'ASC')
-            ->findAll();
-
-
-        return view('pedidos/form', $data);
     }
 
     public function create()
@@ -227,47 +260,153 @@ class Pedidos extends BaseController
 
     public function edit($id)
     {
-        $data['title'] = 'Pedido';
-        $data['clientes'] = $this->clientes
-            ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
-            ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
-            ->findAll();
-        $data['produtos'] = $this->produtos
-            ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
-            ->select('produtos.*, categorias.categorias_nome')
-            ->findAll();
-        $data['enderecos'] = $this->enderecos
-            ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
-            ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
-            ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
-            ->findAll();
-        $data['pedidos'] = $this->pedidos->find($id);
-        $data['op'] = 'update';
-        $data['form'] = 'Alterar';
-        return view('pedidos/form', $data);
+        $nivel = session()->get('login')->usuarios_nivel;
+        if ($nivel == 2) {
+            $data['title'] = 'Pedido';
+            $data['clientes'] = $this->clientes
+                ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+                ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+                ->findAll();
+            $data['produtos'] = $this->produtos
+                ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+                ->select('produtos.*, categorias.categorias_nome')
+                ->findAll();
+            $data['enderecos'] = $this->enderecos
+                ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
+                ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
+                ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                ->findAll();
+            $data['itensPedido'] = null;
+            $data['pedidos'] = $this->pedidos->find($id);
+            $data['op'] = 'update';
+            $data['form'] = 'Editar';
+            return view('pedidos/form', $data);
+        }elseif ($nivel == 0) {
+            $usuarioId = session()->get('login')->usuarios_id;
+
+            $cliente = $this->clientes->select('*')->where('clientes_usuario_id', $usuarioId)->first();
+
+            if (!$cliente) {
+                $data['errors'] = ['Cliente não encontrado para o usuário logado.'];
+                $data['title'] = 'Login';
+
+                return view('login', $data);
+            }
+
+            $data['title'] = 'Meus Pedidos';
+            $data['op'] = 'update';
+            $data['form'] = 'Alterar';
+            $data['pedidos'] = $this->pedidos
+                ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
+                ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+                ->select('pedidos.*, clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                ->where('pedidos.pedidos_id', $id)
+                ->where('clientes.clientes_usuario_id', $usuarioId)
+                ->first();
+            if (!$data['pedidos']) {
+                return redirect()->to('/pedidos')->with('msg', msg('Pedido não encontrado ou não autorizado!', 'danger'));
+            }
+            $data['clientes'] = $this->clientes
+                ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
+                ->select('clientes.*, usuarios.usuarios_nome, usuarios.usuarios_sobrenome, usuarios.usuarios_cpf')
+                ->where('clientes.clientes_usuario_id', $usuarioId)
+                ->findAll();
+            $data['enderecos'] = $this->enderecos
+                ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
+                ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
+                ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                ->where('usuarios.usuarios_id', $usuarioId)
+                ->findAll();
+            $data['produtos'] = $this->produtos
+                ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+                ->select('produtos.*, categorias.categorias_nome')
+                ->findAll();
+            $data['itensPedido'] = $this->itensPedido
+                ->join('produtos', 'produtos.produtos_id = itens_pedido.produtos_id')
+                ->join('pedidos', 'pedidos.pedidos_id = itens_pedido.pedidos_id')
+                ->select('itens_pedido.*, pedidos.*, produtos.*')
+                ->where('pedidos.clientes_id', $cliente->clientes_id)
+                ->where('pedidos.pedidos_id', $id)
+                ->orderBy('itens_pedido.pedidos_id', 'ASC')
+                ->orderBy('itens_pedido.itens_pedido_id', 'ASC')
+                ->findAll();
+            return view('pedidos/form', $data);
+        }else {
+            $data['msg'] = msg("Sem permissão de acesso!", "danger");
+            return view('login', $data);
+        }
     }
 
     public function update()
     {
-        $id = $this->request->getPost('pedidos_id');
+        $nivel = session()->get('login')->usuarios_nivel;
 
-        if (!$this->validate([
-            'clientes_id' => 'required',
-            'status' => 'required',
-            'observacoes' => 'permit_empty',
-            'total_pedido' => 'required|decimal'
-        ])) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        if ($nivel == 2) {
+            // Administrador
+            $id = $this->request->getPost('pedidos_id');
+
+            if (!$this->validate([
+                'clientes_id' => 'required',
+                'status' => 'required',
+                'observacoes' => 'permit_empty',
+                'total_pedido' => 'required|decimal'
+            ])) {
+                return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            }
+
+            $this->pedidos->update($id, [
+                'clientes_id' => $this->request->getPost('clientes_id'),
+                'status' => $this->request->getPost('status'),
+                'observacoes' => $this->request->getPost('observacoes'),
+                'total_pedido' => moedaDolar($this->request->getPost('total_pedido'))
+            ]);
+
+            return redirect()->to('/pedidos')->with('msg', msg('Pedido alterado com sucesso!', 'success'));
+
+        } elseif ($nivel == 0) {
+            $usuarioId = session()->get('login')->usuarios_id;
+        
+            $cliente = $this->clientes->select('*')->where('clientes_usuario_id', $usuarioId)->first();
+        
+            if (!$cliente) {
+                return redirect()->to('/pedidos')->with('msg', msg('Cliente não encontrado para o usuário logado.', 'danger'));
+            }
+        
+            $data = $this->request->getPost();
+
+            $db = \Config\Database::connect();
+            $db->transStart();
+
+            // Atualiza o pedido principal
+            $this->pedidos->update($data['pedidos_id'], [
+                'status' => $data['status'],
+                'observacoes' => $data['observacoes'],
+                'enderecos_id' => $data['enderecos_id'],
+                'total_pedido' => str_replace(['R$', '.', ','], ['', '', '.'], $data['total_pedido']),
+            ]);
+
+            // Remove os itens antigos
+            $this->itensPedido->where('pedidos_id', $data['pedidos_id'])->delete();
+
+            // Insere os novos itens
+            $produtos = $data['produtos'];
+            $quantidades = $data['quantidades'];
+
+            foreach ($produtos as $index => $produto_id) {
+                $this->itensPedido->insert([
+                    'pedidos_id' => $data['pedidos_id'],
+                    'produtos_id' => $produto_id,
+                    'quantidade' => $quantidades[$index]
+                ]);
+            }
+
+            $db->transComplete();
+            if ($db->transStatus() === false) {
+                return redirect()->to('/pedidos');
+            }
+
+            return redirect()->to('/pedidos')->with('msg', 'Pedido atualizado com sucesso!');
         }
-
-        $this->pedidos->update($id, [
-            'clientes_id' => $this->request->getPost('clientes_id'),
-            'status' => $this->request->getPost('status'),
-            'observacoes' => $this->request->getPost('observacoes'),
-            'total_pedido' => moedaDolar($this->request->getPost('total_pedido'))
-        ]);
-
-        return redirect()->to('/pedidos')->with('msg', msg('Pedido alterado com sucesso!', 'success'));
     }
 
     public function search()
