@@ -121,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <?= $this->endSection() ?>
 
-<?= $this->endSection() ?>
 
 <?php
     }

@@ -68,7 +68,6 @@ if (isset($_SESSION['login'])) {
 
 <?= $this->endSection() ?>
 
-<?= $this->endSection() ?>
 
 <?php
     }
