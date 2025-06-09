@@ -1,13 +1,12 @@
 <!-- Tela com iformações do usuário logado e opções de edição e adição de endereço para envio de pedidos -->
 <?php
-    helper('functions');
-    session();
-    // if(isset($_SESSION['login'])){
-    //     $login = $_SESSION['login'];
-    //     print_r($login);
-    //     if($login->usuarios_nivel == 2){
-    
-?>
+helper('functions');
+session();
+if(isset($_SESSION['login'])){
+    $login = $_SESSION['login'];
+    if($login->usuarios_nivel == 0){
+
+        ?>
 <?= $this->extend('Templates_user') ?>
 <?= $this->section('content') ?>
 
@@ -19,7 +18,7 @@
                 <i class="bi bi-pencil-square"></i> Editar Perfil
             </a>
             <a class="btn btn-danger" href="<?= base_url('usuarios/delete/' . $usuario->usuarios_id); ?>">
-                    <i class="bi bi-trash"></i> Excluir Conta
+                <i class="bi bi-trash"></i> Excluir Conta
             </a>
         </div>
     </div>
@@ -34,10 +33,12 @@
             <div class="card-body">
                 <p><strong>Nome:</strong> <?= $usuario->usuarios_nome ?> - <?= $usuario->usuarios_sobrenome ?></p>
                 <p><strong>CPF:</strong> <?= $usuario->usuarios_cpf ?></p>
-                <p><strong>Data de Nascimento:</strong> <?= date('d/m/Y', strtotime($usuario->usuarios_data_nasc)) ?></p>
+                <p><strong>Data de Nascimento:</strong> <?= date('d/m/Y', strtotime($usuario->usuarios_data_nasc)) ?>
+                </p>
                 <p><strong>Email:</strong> <?= $usuario->usuarios_email ?></p>
                 <p><strong>Telefone:</strong> <?= $usuario->usuarios_fone ?></p>
-                <p><strong>Data de Cadastro:</strong> <?= date('d/m/Y H:i', strtotime($usuario->usuarios_data_cadastro)) ?></p>
+                <p><strong>Data de Cadastro:</strong>
+                    <?= date('d/m/Y H:i', strtotime($usuario->usuarios_data_cadastro)) ?></p>
             </div>
         </div>
         <div class="card-footer">
@@ -55,23 +56,40 @@
                 </a>
             </div>
             <?php if (!empty($enderecos)): ?>
-                <ul class="list-group">
-                    <?php foreach ($enderecos as $endereco): ?>
-                        <li class="list-group-item">
-                            <?= $endereco->cidades_nome ?> - <?= $endereco->cidades_uf ?><br>
-                            <?= $endereco->enderecos_rua ?>, <?= $endereco->enderecos_numero ?>, <?= $endereco->enderecos_complemento ?><br>
-                            <a class="btn btn-info btn-sm mt-2" href="<?= base_url('enderecos/edit/' . $endereco->enderecos_id); ?>">
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </a>
-                            <a class="btn btn-danger btn-sm mt-2" href="<?= base_url('enderecos/delete/' . $endereco->enderecos_id); ?>">
-                                <i class="bi bi-trash"></i> Excluir
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
+            <ul class="list-group">
+                <?php foreach ($enderecos as $endereco): ?>
+                <li class="list-group-item">
+                    <?= $endereco->cidades_nome ?> - <?= $endereco->cidades_uf ?><br>
+                    <?= $endereco->enderecos_rua ?>, <?= $endereco->enderecos_numero ?>,
+                    <?= $endereco->enderecos_complemento ?><br>
+                    <a class="btn btn-info btn-sm mt-2"
+                        href="<?= base_url('enderecos/edit/' . $endereco->enderecos_id); ?>">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </a>
+                    <a class="btn btn-danger btn-sm mt-2"
+                        href="<?= base_url('enderecos/delete/' . $endereco->enderecos_id); ?>">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+                </li>
+                <?php endforeach; ?>
+            </ul>
             <?php else: ?>
-                <p class="text-muted">Nenhum endereço adicionado.</p>
+            <p class="text-muted">Nenhum endereço adicionado.</p>
             <?php endif; ?>
         </div>
     </div>
-<?= $this->endSection() ?>
+    <?= $this->endSection() ?>
+
+    <?php
+    } else {
+
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
+    }
+} else {
+
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
+}
+
+?>

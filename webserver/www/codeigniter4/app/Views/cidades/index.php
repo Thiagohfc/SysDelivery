@@ -1,10 +1,9 @@
 <?php
     helper('functions');
     session();
-    // if(isset($_SESSION['login'])){
-    //     $login = $_SESSION['login'];
-    //     print_r($login);
-    //     if($login->usuarios_nivel == 2){
+     if(isset($_SESSION['login'])){
+        $login = $_SESSION['login'];
+         if($login->usuarios_nivel == 2){
     
 ?>
 <?= $this->extend('Templates_admin') ?>
@@ -72,15 +71,15 @@
 <?= $this->endSection() ?>
 
 <?php 
-    //     }else{
+         }else{
 
-    //         $data['msg'] = msg("Sem permissão de acesso!","danger");
-    //         echo view('login',$data);
-    //     }
-    // }else{
+             $data['msg'] = msg("Sem permissão de acesso!","danger");
+           echo view('login',$data);
+         }
+     }else{
 
-    //     $data['msg'] = msg("O usuário não está logado!","danger");
-    //     echo view('login',$data);
-    // }
+         $data['msg'] = msg("O usuário não está logado!","danger");
+         echo view('login',$data);
+     }
 
 ?>
