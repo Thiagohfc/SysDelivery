@@ -33,9 +33,9 @@
             <div class="d-flex">
                 <!-- Usuario Logado -->
                 <span class="navbar-text text-white me-3">
-                    <a href="<?php echo base_url('usuarios/perfil') ?>" class="text-white text-decoration-none">
+                    <a class="nav-link text-white" href="<?php echo base_url('usuarios/perfil/' . session()->get('login')->usuarios_id) ?>">
                         <i class="bi bi-person-circle"></i>
-                        <?php echo session()->get('login')->usuarios_nome; ?>
+                        <?php echo session()->get('login')->usuarios_nome ?>
                     </a>
                 </span>
                 <!-- Botão Sair -->

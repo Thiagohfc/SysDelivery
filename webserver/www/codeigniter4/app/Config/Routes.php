@@ -43,9 +43,9 @@ $routes->get('/usuarios/edit/(:any)', 'Usuarios::edit/$1');
 $routes->get('/usuarios/delete/(:any)', 'Usuarios::delete/$1');
 $routes->post('/usuarios/update', 'Usuarios::update');
 $routes->post('/usuarios/search', 'Usuarios::search');
-$routes->get('/usuarios/perfil', 'Usuarios::perfil');
+$routes->get('/usuarios/perfil/(:any)', 'Usuarios::perfil/$1');
 
-$routes->get('/usuarios/edit_senha', 'Usuarios::edit_senha');
+$routes->get('/usuarios/edit_senha/(:any)', 'Usuarios::edit_senha/$1');
 $routes->post('/usuarios/salvar_senha', 'Usuarios::salvar_senha');
 
 $routes->get('/usuarios/edit_nivel', 'Usuarios::edit_nivel');

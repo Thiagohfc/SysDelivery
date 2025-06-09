@@ -47,8 +47,7 @@ class Cadastro extends BaseController
             'usuarios_data_nasc' => date('Y-m-d', strtotime($this->request->getPost('data_nasc'))),
             'usuarios_data_cadastro' => date('Y-m-d H:i:s'),
             'usuarios_nivel' => 0,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+
         ]);
 
         $usuarioId = $this->usuarios->insertID();
