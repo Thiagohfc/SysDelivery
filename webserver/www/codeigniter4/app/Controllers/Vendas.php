@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\ItensPedido;
 use App\Models\Vendas as Venda;
 use App\Models\Pedidos as Pedido;
+use App\Controllers\Pedidos as PedidosController;
 
 
 class Vendas extends BaseController
@@ -15,6 +16,8 @@ class Vendas extends BaseController
 
     private $estoquesController;
 
+    private $pedidosController;
+
     private $db;
 
     public function __construct()
@@ -22,6 +25,7 @@ class Vendas extends BaseController
         $this->vendas = new Venda();
         $this->pedidos = new Pedido();
         $this->estoquesController = new Estoques();
+        $this->pedidosController = new PedidosController();
         $this->itensPedido = new ItensPedido();
         $this->db = \Config\Database::connect();
         helper('functions');
@@ -71,6 +75,8 @@ class Vendas extends BaseController
         
         try{
             $this->db->transStart();
+
+            //Montei a query perfeitinha
             $query = $this->itensPedido->select('produtos_id')
                            ->selectSum('quantidade', 'quantidade_total') 
                            ->where('pedidos_id', $this->request->getPost('pedidos_id'))
@@ -78,11 +84,11 @@ class Vendas extends BaseController
                            ->get();
             $itemDoPedido = $query->getResult();
             
-                    
+            //Abati no estoque
             foreach ($itemDoPedido as $item) {
                 $this->estoquesController->saida_estoque($item->quantidade_total, $item->produtos_id);
             }      
-
+            //Cadastrei a venda papae
             $this->vendas->save([
                 'pedidos_id' => $this->request->getPost('pedidos_id'),
                 'data_venda' => date('Y-m-d H:i:s'),
@@ -90,11 +96,14 @@ class Vendas extends BaseController
                 'valor_total' => moedaDolar($this->request->getPost('valor_total')),
                 'observacoes' => $this->request->getPost('observacoes')
             ]);
+            //Venda Cadastrada = Pedido Concluído
+            $this->pedidosController->atualizaStatus('Concluido', $this->request->getPost('pedidos_id'));
             $this->db->transCommit();
             $this->db->transComplete();
 
 
         }catch(\Exception $e){
+            //Deu ruim volta
             $this->db->transRollback();
             throw $e;
         }

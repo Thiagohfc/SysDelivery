@@ -113,10 +113,23 @@ class Entregas extends BaseController
         return view('entregas/form', $data);
     }
 
+    public function atualiza_status_entrega($status_entrega, $entregas_id){
+        $updateStatus = $this->entregas->where('entregas_id', $entregas_id)
+                            ->set('status_entrega', $status_entrega)
+                            ->update();
+
+        if (!$updateStatus) {
+            $this->db->transRollback();
+            throw new \Exception('Atualização de status não realizada operação revertida', 501);
+        }
+
+        $this->db->transCommit();
+        return $updateStatus;
+    }
+
     public function update()
     {
-        $post = $this->request->getPost();
-
+        $postData = $this->request->getPost();
         if (
             !$this->validate([
                 'pedido_id' => 'required|is_natural_no_zero',
@@ -127,10 +140,22 @@ class Entregas extends BaseController
         ) {
             return redirect()->back()->withInput()->with('msg', msg('Erro na validação!', 'danger'));
         }
+        $this->db->transStart();
+        
+        $this->atualiza_status_entrega($postData['status_entrega'], $postData['entregas_id']);
+        $updateStatus = $this->entregas->update($postData['entregas_id'], [
+            'pedido_id' => $postData['pedido_id'],
+            'endereco_id' => $postData['endereco_id'],
+            'funcionario_id' => $postData['funcionario_id'],
+        ]);
 
-        $this->entregas->update($post['entregas_id'], $post);
-
-        return redirect()->to('/entregas')->with('msg', msg('Entrega atualizada com sucesso!', 'success'));
+        if (!$updateStatus) {
+            $this->db->transRollback();
+        }
+        if ($postData['status_entrega'] != 'ENTREGUE') {
+            return redirect()->to('/entregas')->with('msg', msg('Entrega atualizada com sucesso!', 'success'));
+        }
+        return redirect()->to('/vendas')->with('msg', msg('Entrega efetuada, realize o cadastro de venda', 'success'));
     }
 
     public function search()

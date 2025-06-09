@@ -370,14 +370,14 @@ class Pedidos extends BaseController
                 return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
             }
             $this->db->transStart();
-            $updateStatus = $this->atualizaStatus($this->request->getPost('status') ,$id);
+            $this->atualizaStatus($this->request->getPost('status') ,$id);
             $this->pedidos->update($id, [
                 'clientes_id' => $this->request->getPost('clientes_id'),
                 'observacoes' => $this->request->getPost('observacoes'),
                 'total_pedido' => moedaDolar($this->request->getPost('total_pedido'))
             ]);
             $this->db->transCommit();
-            if ($this->request->getPost('status') !== 'concluido'){
+            if ($this->request->getPost('status') !== 'em rota de entrega'){
                 return redirect()->to('/pedidos')->with('msg', msg('Pedido alterado com sucesso!', 'success'));
             }
             return redirect()->to('/entregas')->with('msg', msg('Pedido concluído, agora realize o cadastro da entrega', 'success'));
