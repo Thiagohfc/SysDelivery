@@ -14,6 +14,7 @@ class Pedidos extends BaseController
     private $itensPedido;
     private $produtos;
     private $enderecos;
+    private $db;
 
     public function __construct()
     {
@@ -22,10 +23,11 @@ class Pedidos extends BaseController
         $this->itensPedido = new ItensPedido();
         $this->produtos = new Produtos();
         $this->enderecos = new Enderecos();
+        $this->db = \Config\Database::connect();
         helper('functions');
     }
 
-    public function index(): string
+    public function index()
     {
         $data = $this->request->getPost();
 
@@ -58,7 +60,7 @@ class Pedidos extends BaseController
         return redirect()->to('/')->with('msg', msg('Nível de usuário não autorizado para acessar os pedidos.', 'danger'));
     }
 
-    public function new(): string
+    public function new()
     {
         $session = session();
         $usuarioId = $session->get('login')->usuarios_id;
@@ -181,8 +183,8 @@ class Pedidos extends BaseController
         $quantidades = $data['quantidades'];
         $total = 0;
 
-        $db = \Config\Database::connect();
-        $db->transStart();
+        
+        $this->db->transStart();
 
         $pedidoData = [
             'clientes_id' => $cliente->clientes_id,
@@ -214,7 +216,7 @@ class Pedidos extends BaseController
         }
 
         if ($total == 0) {
-            $db->transRollback();
+            $this->db->transRollback();
             return redirect()->back()->withInput()->with('errors', ['Nenhum item válido foi adicionado.']);
         }
 
@@ -222,9 +224,9 @@ class Pedidos extends BaseController
             'total_pedido' => $total
         ]);
 
-        $db->transComplete();
+        $this->db->transComplete();
 
-        if ($db->transStatus() === false) {
+        if ($this->db->transStatus() === false) {
             return redirect()->back()->withInput()->with('errors', ['Erro ao salvar pedido e itens.']);
         }
 
@@ -337,6 +339,20 @@ class Pedidos extends BaseController
         }
     }
 
+    public function atualizaStatus($status, $pedido_id){
+        $updateStatus = $this->pedidos->where('pedidos_id', $pedido_id)
+                            ->set('status', $status)
+                            ->update();
+
+        if (!$updateStatus) {
+            $this->db->transRollback();
+            throw new \Exception('Atualização de status não realizada operação revertida', 501);
+        }
+
+        $this->db->transCommit();
+        return $updateStatus;
+    }
+
     public function update()
     {
         $nivel = session()->get('login')->usuarios_nivel;
@@ -353,15 +369,19 @@ class Pedidos extends BaseController
             ])) {
                 return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
             }
-
+            $this->db->transStart();
+            $updateStatus = $this->atualizaStatus($this->request->getPost('status') ,$id);
             $this->pedidos->update($id, [
                 'clientes_id' => $this->request->getPost('clientes_id'),
-                'status' => $this->request->getPost('status'),
                 'observacoes' => $this->request->getPost('observacoes'),
                 'total_pedido' => moedaDolar($this->request->getPost('total_pedido'))
             ]);
-
-            return redirect()->to('/pedidos')->with('msg', msg('Pedido alterado com sucesso!', 'success'));
+            $this->db->transCommit();
+            if ($this->request->getPost('status') !== 'concluido'){
+                return redirect()->to('/pedidos')->with('msg', msg('Pedido alterado com sucesso!', 'success'));
+            }
+            return redirect()->to('/entregas')->with('msg', msg('Pedido concluído, agora realize o cadastro da entrega', 'success'));
+            
 
         } elseif ($nivel == 0) {
             $usuarioId = session()->get('login')->usuarios_id;
@@ -374,13 +394,14 @@ class Pedidos extends BaseController
         
             $data = $this->request->getPost();
 
-            $db = \Config\Database::connect();
-            $db->transStart();
+            
+            $this->db->transStart();
 
             // Atualiza o pedido principal
+            $this->atualizaStatus($data['status'], $data['pedidos_id']);
             $this->pedidos->update($data['pedidos_id'], [
-                'status' => $data['status'],
                 'observacoes' => $data['observacoes'],
+                'status' => $data['status'] ,$data['pedidos_id'],
                 'enderecos_id' => $data['enderecos_id'],
                 'total_pedido' => str_replace(['R$', '.', ','], ['', '', '.'], $data['total_pedido']),
             ]);
@@ -400,8 +421,8 @@ class Pedidos extends BaseController
                 ]);
             }
 
-            $db->transComplete();
-            if ($db->transStatus() === false) {
+            $this->db->transComplete();
+            if ($this->db->transStatus() === false) {
                 return redirect()->to('/pedidos');
             }
 
