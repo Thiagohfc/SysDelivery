@@ -148,7 +148,7 @@ class Estoques extends BaseController
         $quantidadeAtual = $itemEstoque -> quantidade; 
     
         if ($quantidadeAtual < $quantidade_saida) {
-            $errorMessage = "Estoque insuficiente para o produto ID {$produto_id}. Quantidade disponível: {$quantidadeAtual}, Saída solicitada: {$quantidade_saida}.";
+            $errorMessage = "Estoque insuficiente para o produto ID: {$produto_id}. Quantidade disponível: {$quantidadeAtual}, Saída solicitada: {$quantidade_saida}.";
             throw new BadRequestException($errorMessage);
         }
     
@@ -161,7 +161,6 @@ class Estoques extends BaseController
     
         if ($updateResult) {
             session()->setFlashdata('message', 'Saída de estoque registrada com sucesso!');
-            return redirect()->to('/vendas')->with('msg', msg('Venda cadastrada com sucesso!', 'success'));
         } else {
             throw new BadRequestException('Falha ao atualizar o estoque. Nenhuma alteração foi feita ou ocorreu um erro. Verifique os logs.');
         }

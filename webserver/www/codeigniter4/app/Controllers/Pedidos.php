@@ -426,7 +426,7 @@ class Pedidos extends BaseController
             if ($this->request->getPost('status') !== 'em rota de entrega'){
                 return redirect()->to('/pedidos')->with('msg', msg('Pedido alterado com sucesso!', 'success'));
             }
-            return redirect()->to('/entregas')->with('msg', msg('Pedido concluído, agora realize o cadastro da entrega', 'success'));
+            return redirect()->to('/entregas')->with('msg', msg('O pedido está em rota de entrega, realize o cadastro da entrega', 'success'));
             
 
         } elseif ($nivel == 0) {

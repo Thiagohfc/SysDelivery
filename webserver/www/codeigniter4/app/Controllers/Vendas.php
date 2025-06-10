@@ -108,7 +108,7 @@ class Vendas extends BaseController
             throw $e;
         }
 
-        return redirect()->to('/vendas')->with('msg', msg('Venda cadastrada com sucesso!', 'success'));
+        return redirect()->to('/vendas')->with('msg', msg('Venda cadastrada com sucesso, o pedido referente essa venda será marcado como concluído automaticamente.', 'success'));
     }
 
     public function delete($id)
