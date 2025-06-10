@@ -13,8 +13,9 @@ if (isset($_SESSION['login'])) {
 <div class="container">
     <h2 class="border-bottom border-2 border-primary mt-5 pt-3 mb-4"> <?= $title ?> </h2>
 
-    <?php if (isset($msg))
-        echo $msg; ?>
+    <?php if (session()->getFlashdata('msg')): ?>
+    <?= session()->getFlashdata('msg') ?>
+    <?php endif; ?>
 
     <form action="<?= base_url('vendas/search'); ?>" class="d-flex mb-3" role="search" method="post">
         <input class="form-control me-2" name="pesquisar" type="search" placeholder="Pesquisar" aria-label="Search">
