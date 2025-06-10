@@ -58,6 +58,13 @@ class Funcionarios extends BaseController
             'funcionarios_observacoes' => $this->request->getPost('funcionarios_observacoes'),
         ]);
 
+        $usuarios_id = $this->request->getPost('funcionarios_usuario_id');
+        if ($usuarios_id) {
+            $this->usuarios->update($usuarios_id, [
+                'usuarios_nivel' => 1,
+            ]);
+        }
+
         return redirect()->to('/funcionarios')->with('msg', msg('Funcionário cadastrado com sucesso!', 'success'));
     }
 

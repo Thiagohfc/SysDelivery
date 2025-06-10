@@ -17,6 +17,9 @@ if (isset($_SESSION['login'])) {
     <?php if (isset($msg)) {
         echo $msg;
     } ?>
+    <?php if (session()->getFlashdata('msg')): ?>
+    <?= session()->getFlashdata('msg') ?>
+    <?php endif; ?>
 
     <form action="<?= base_url('funcionarios/search'); ?>" class="d-flex" role="search" method="post">
         <input class="form-control me-2" name="pesquisar" type="search" placeholder="Pesquisar" aria-label="Search">

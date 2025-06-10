@@ -61,7 +61,6 @@ if (isset($_SESSION['login'])) {
 <div class="container mt-5 pt-4 pb-5 bg-light">
 
     <?php if(isset($msg)){echo $msg;} ?>
-    <?php echo $nivel ?>
 
     <h2 class="border-bottom border-2 border-primary">
         Alterar Senha

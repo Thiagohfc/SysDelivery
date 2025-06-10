@@ -100,6 +100,7 @@ if (isset($_SESSION['login'])) {
 <?= $this->section('content') ?>
 
 <div class="container pt-4 pb-5 bg-light">
+    <?php if(isset($msg)){echo $msg;} ?>
     <h2 class="border-bottom border-2 border-primary">
         <?= ucfirst($form) . ' ' . $title ?>
     </h2>
@@ -118,13 +119,33 @@ if (isset($_SESSION['login'])) {
                     <div class="col-md-4">
                         <select name="produtos[]" class="form-select produto-select" required>
                             <option value="">Selecione um produto</option>
-                            <?php foreach ($produtos as $produto): ?>
-                            <option value="<?= $produto->produtos_id ?>"
-                                data-preco="<?= $produto->produtos_preco_venda ?>">
-                                <?= esc($produto->produtos_nome) ?> - R$
-                                <?= number_format($produto->produtos_preco_venda, 2, ',', '.') ?>
-                            </option>
-                            <?php endforeach; ?>
+                            <?php if(!empty($selectProduto)): ?>
+                                <?php foreach ($produtos as $produto): ?>
+                                    <?php foreach ($selectProduto as $select): ?>
+                                        <?php if ($produto->produtos_id == $select->produtos_id): ?>
+                                            <option value="<?= $produto->produtos_id ?>"
+                                                    data-preco="<?= $produto->produtos_preco_venda ?>" selected>
+                                                    <?= esc($produto->produtos_nome) ?> - R$
+                                                    <?= number_format($produto->produtos_preco_venda, 2, ',', '.') ?>
+                                                </option>
+                                        <?php else: ?>
+                                            <option value="<?= $produto->produtos_id ?>"
+                                                data-preco="<?= $produto->produtos_preco_venda ?>">
+                                                <?= esc($produto->produtos_nome) ?> - R$
+                                                <?= number_format($produto->produtos_preco_venda, 2, ',', '.') ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php foreach ($produtos as $produto): ?>
+                                    <option value="<?= $produto->produtos_id ?>"
+                                        data-preco="<?= $produto->produtos_preco_venda ?>">
+                                        <?= esc($produto->produtos_nome) ?> - R$
+                                        <?= number_format($produto->produtos_preco_venda, 2, ',', '.') ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </select>
                     </div>
                     <div class="col-md-3">

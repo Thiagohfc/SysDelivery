@@ -135,6 +135,53 @@ class Pedidos extends BaseController
 
     }
 
+    public function selectProduto($produtoId){
+        $session = session();
+        if($session){
+            $usuarioId = $session->get('login')->usuarios_id ?? null;
+    
+            if($usuarioId){
+                if($produtoId){
+                    $data['selectProduto'] = $this->produtos
+                        ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+                        ->select('produtos.*, categorias.categorias_nome')
+                        ->where('produtos_id', $produtoId)->findAll();
+                }
+        
+                $cliente = $this->clientes->select('*')->where('clientes_usuario_id', $usuarioId)->first();
+        
+                if (!$cliente) {
+                    $data['errors'] = ['Cliente não encontrado para o usuário logado.'];
+                    $data['title'] = 'Login';
+        
+                    return view('login', $data);
+                }
+        
+                $data['title'] = 'Meus Pedidos';
+                $data['op'] = 'createPedido';
+                $data['form'] = 'Cadastrar';
+                $data['msg'] = msg('Agora finalize o pedido!', 'success');
+                $data['pedidos'] = null;
+                $data['clientes'] = [$cliente];
+                $data['enderecos'] = $this->enderecos
+                    ->join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
+                    ->join('usuarios', 'usuarios.usuarios_id = enderecos.enderecos_usuario_id')
+                    ->select('enderecos.*, cidades.cidades_nome, cidades.cidades_uf, usuarios.usuarios_nome, usuarios.usuarios_sobrenome')
+                    ->where('usuarios.usuarios_id', $usuarioId)
+                    ->findAll();
+                $data['produtos'] = $this->produtos
+                    ->join('categorias', 'categorias.categorias_id = produtos.produtos_categorias_id')
+                    ->select('produtos.*, categorias.categorias_nome')
+                    ->findAll();
+                $data['itensPedido'] = null;
+        
+                return view('pedidos/form', $data);
+            }else{
+                return redirect()->to('/login')->with('msg', msg('Cadastre-se ou faça Login!', 'danger'));
+            }
+        }
+    }
+
     public function create()
     {
         if (!$this->validate([

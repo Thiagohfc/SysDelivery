@@ -80,6 +80,7 @@ $routes->get('pedidos/edit/(:num)', 'Pedidos::edit/$1');
 $routes->post('pedidos/update', 'Pedidos::update');
 $routes->get('pedidos/delete/(:num)', 'Pedidos::delete/$1');
 $routes->post('pedidos/search', 'Pedidos::search');
+$routes->get('pedidos/produto/(:num)', 'Pedidos::selectProduto/$1');
 
 $routes->get('vendas', 'Vendas::index');
 $routes->get('vendas/index', 'Vendas::index');

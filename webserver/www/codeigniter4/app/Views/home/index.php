@@ -25,6 +25,9 @@ if (isset($_SESSION['login'])) {
 
 <!--Abre Produtos-->
 <div id="produtos" class="container">
+    <?php if (session()->getFlashdata('msg')): ?>
+        <?= session()->getFlashdata('msg') ?>
+    <?php endif; ?>
 
     <h2 class="border-bottom mt-3 border-2 border-primary">Produtos</h2>
 
@@ -51,7 +54,7 @@ if (isset($_SESSION['login'])) {
                     </h5>
                     <p class="card-text"><?= esc($produto->produtos_descricao) ?></p>
                     <p class="text-center">
-                        <a href="<?= base_url('user/produto/' . $produto->produtos_id) ?>" class="btn btn-primary">
+                        <a href="<?= base_url('/pedidos/produto/' . $produto->produtos_id) ?>" class="btn btn-primary">
                             Comprar <i class="bi bi-basket2-fill"></i>
                         </a>
                     </p>

@@ -1,10 +1,12 @@
 <div class="container p-5">
-
-            <div class="row  mt-5">
-                
-
-                <div
-                    class="mx-auto border border-1 border-secondary rounded p-5 col-lg-5  ">
+    <div class="row  mt-5">
+        
+        
+        <div
+        class="mx-auto border border-1 border-secondary rounded p-5 col-lg-5  ">
+        <?php if (session()->getFlashdata('msg')): ?>
+            <?= session()->getFlashdata('msg') ?>
+        <?php endif; ?>
                     <div class="text-center mt-3 mb-3">
                         <?php if(isset($msg)){echo $msg;} ?>
                         <img src="<?php echo base_url('assets/images/sd_logo.png') ?>" alt="SysDelivery" width="180">
