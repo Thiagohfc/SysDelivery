@@ -3,17 +3,21 @@ helper('functions');
 session();
 if (isset($_SESSION['login'])) {
     $login = $_SESSION['login'];
-    if ($login->usuarios_nivel == 2) {
 
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        $template = $login->usuarios_nivel == 2 ? 'Templates_admin' : 'Templates_funcionario';
         ?>
-<?= $this->extend('Templates_admin') ?>
+
+<?= $this->extend($template) ?>
 <?= $this->section('content') ?>
 
 <div class="container">
 
     <h2 class="border-bottom border-2 border-primary mt-3 mb-4"> <?= $title ?> </h2>
 
-    <?php if(isset($msg)){echo $msg;} ?>
+    <?php if (isset($msg))
+                echo $msg; ?>
 
     <form action="<?= base_url('produtos/search'); ?>" class="d-flex" role="search" method="post">
         <input class="form-control me-2" name="pesquisar" type="search" placeholder="Pesquisar" aria-label="Search">
@@ -27,7 +31,6 @@ if (isset($_SESSION['login'])) {
     <a href="<?= base_url('relatorios/2') ?>" target="_blank" class="btn btn-primary mb-3">
         <i class="fas fa-file-pdf"></i> Relatório de Produtos
     </a>
-
 
     <table class="table">
         <thead>
@@ -46,44 +49,37 @@ if (isset($_SESSION['login'])) {
             </tr>
         </thead>
         <tbody class="table-group-divider">
-
-            <!-- Aqui vai o laço de repetição -->
-            <?php for($i=0; $i < count($produtos); $i++){ ?>
+            <?php foreach ($produtos as $produto): ?>
             <tr>
-                <th scope="row"><?= $produtos[$i]->produtos_id; ?></th>
-                <td><?= $produtos[$i]->produtos_nome; ?></td>
-                <td>R$ <?= moedaReal($produtos[$i]->produtos_preco_custo); ?></td>
-                <td>R$ <?= moedaReal($produtos[$i]->produtos_preco_venda); ?></td>
-                <td><?= $produtos[$i]->categorias_nome; ?></td>
+                <th scope="row"><?= $produto->produtos_id; ?></th>
+                <td><?= $produto->produtos_nome; ?></td>
+                <td>R$ <?= moedaReal($produto->produtos_preco_custo); ?></td>
+                <td>R$ <?= moedaReal($produto->produtos_preco_venda); ?></td>
+                <td><?= $produto->categorias_nome; ?></td>
                 <td>
-                    <a class="btn btn-primary" href="<?= base_url('produtos/edit/'.$produtos[$i]->produtos_id); ?>">
-                        Editar
-                        <i class="bi bi-pencil-square"></i>
+                    <a class="btn btn-primary" href="<?= base_url('produtos/edit/' . $produto->produtos_id); ?>">
+                        Editar <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a class="btn btn-danger" href="<?= base_url('produtos/delete/'.$produtos[$i]->produtos_id); ?>">
-                        Excluir
-                        <i class="bi bi-x-circle"></i>
+                    <a class="btn btn-danger" href="<?= base_url('produtos/delete/' . $produto->produtos_id); ?>">
+                        Excluir <i class="bi bi-x-circle"></i>
                     </a>
                 </td>
             </tr>
-            <?php } ?>
-
+            <?php endforeach; ?>
         </tbody>
     </table>
 
 </div>
+
 <?= $this->endSection() ?>
 
-<?php 
-        }else{
-
-            $data['msg'] = msg("Sem permissão de acesso!","danger");
-            echo view('login',$data);
-        }
-    }else{
-
-        $data['msg'] = msg("O usuário não está logado!","danger");
-        echo view('login',$data);
+<?php
+    } else {
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
     }
-
+} else {
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
+}
 ?>

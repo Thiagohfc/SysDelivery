@@ -1,13 +1,21 @@
 <?php
-    helper('functions');
-    session();
-     if(isset($_SESSION['login'])){
-         $login = $_SESSION['login'];
-         if($login->usuarios_nivel == 2){
-    
-?>
+helper('functions');
+session();
 
-<?= $this->extend('Templates_admin') ?>
+if (isset($_SESSION['login'])) {
+    $login = $_SESSION['login'];
+
+    // CORREÇÃO: Permite o acesso para nível 2 (admin) e 1 (funcionário)
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto de acordo com o nível
+        if ($login->usuarios_nivel == 2) {
+            echo $this->extend('Templates_admin');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
+        ?>
+
 <?= $this->section('content') ?>
 
 <div class="container pt-4 pb-5 bg-light">
@@ -17,7 +25,6 @@
 
     <form action="<?= base_url('estoques/' . $op); ?>" method="post">
 
-        <!-- SELECT DE PRODUTOS -->
         <div class="mb-3">
             <label for="produto_id" class="form-label">Produto</label>
             <select class="form-select" name="produto_id" id="produto_id" required>
@@ -31,14 +38,12 @@
             </select>
         </div>
 
-        <!-- Quantidade -->
         <div class="mb-3">
             <label for="quantidade" class="form-label">Quantidade</label>
             <input type="number" class="form-control" name="quantidade" value="<?= $estoques->quantidade ?? ''; ?>"
                 id="quantidade" required>
         </div>
 
-        <!-- ID oculto -->
         <input type="hidden" name="estoques_id" value="<?= $estoques->estoques_id ?? ''; ?>">
 
         <div class="mb-3">
@@ -53,14 +58,13 @@
 
 <?php
     } else {
-
+        // Se não for nível 2 ou 1, o acesso é negado
         $data['msg'] = msg("Sem permissão de acesso!", "danger");
         echo view('login', $data);
     }
 } else {
-
+    // Se não estiver logado
     $data['msg'] = msg("O usuário não está logado!", "danger");
     echo view('login', $data);
 }
-
 ?>

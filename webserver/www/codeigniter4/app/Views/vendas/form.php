@@ -3,11 +3,18 @@ helper('functions');
 session();
 if (isset($_SESSION['login'])) {
     $login = $_SESSION['login'];
-    if ($login->usuarios_nivel == 2) {
 
+    // CORREÇÃO: Permite o acesso para nível 2 (admin) e 1 (funcionário)
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto de acordo com o nível
+        if ($login->usuarios_nivel == 2) {
+            echo $this->extend('Templates_admin');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
         ?>
 
-<?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
 
 <div class="container pt-4 pb-5 bg-light">
@@ -17,7 +24,6 @@ if (isset($_SESSION['login'])) {
 
     <form action="<?= base_url('vendas/' . $op); ?>" method="post">
 
-        <!-- SELECT DE PEDIDOS -->
         <div class="mb-3">
             <label for="pedidos_id" class="form-label">Pedido</label>
             <select class="form-select" name="pedidos_id" id="pedidos_id" required
@@ -32,7 +38,6 @@ if (isset($_SESSION['login'])) {
             </select>
         </div>
 
-        <!-- Data da Venda -->
         <div class="mb-3">
             <label for="data_venda" class="form-label">Data da Venda</label>
             <input type="datetime-local" class="form-control" name="data_venda"
@@ -40,7 +45,6 @@ if (isset($_SESSION['login'])) {
                 id="data_venda" required>
         </div>
 
-        <!-- Forma de Pagamento -->
         <div class="mb-3">
             <label for="forma_pagamento" class="form-label">Forma de Pagamento</label>
             <select class="form-select" name="forma_pagamento" id="forma_pagamento" required>
@@ -63,7 +67,6 @@ if (isset($_SESSION['login'])) {
             </select>
         </div>
 
-        <!-- Valor Total -->
         <div class="mb-3">
             <label for="valor_total" class="form-label">Valor Total (R$)</label>
             <input type="text" class="form-control" name="valor_total" id="valor_total"
@@ -71,14 +74,12 @@ if (isset($_SESSION['login'])) {
                 readonly required>
         </div>
 
-        <!-- Observações -->
         <div class="mb-3">
             <label for="observacoes" class="form-label">Observações</label>
             <textarea class="form-control" name="observacoes" id="observacoes"
                 rows="4"><?= $venda->observacoes ?? ''; ?></textarea>
         </div>
 
-        <!-- ID oculto -->
         <input type="hidden" name="vendas_id" value="<?= $venda->vendas_id ?? ''; ?>">
 
         <div class="mb-3">
@@ -110,19 +111,15 @@ function atualizarValorTotal(pedidos_id) {
 }
 </script>
 
-
 <?= $this->endSection() ?>
 
-<?php 
-        }else{
-
-            $data['msg'] = msg("Sem permissão de acesso!","danger");
-            echo view('login',$data);
-        }
-    }else{
-
-        $data['msg'] = msg("O usuário não está logado!","danger");
-        echo view('login',$data);
+<?php
+    } else {
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
     }
-
+} else {
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
+}
 ?>

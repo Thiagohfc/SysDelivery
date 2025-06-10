@@ -1,22 +1,30 @@
 <?php
 helper('functions');
 session();
-if(isset($_SESSION['login'])){
+
+if (isset($_SESSION['login'])) {
     $login = $_SESSION['login'];
-    if($login->usuarios_nivel == 2){
+
+    // Se for admin (2) ou funcionário (1), mostra o formulário de gerenciamento
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto para cada nível
+        if ($login->usuarios_nivel == 2) {
+            echo $this->extend('Templates_admin');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
         ?>
 
-<?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
 
-<div class="container pt-4 pb-5 bg-light">Add commentMore actions
+<div class="container pt-4 pb-5 bg-light">
     <h2 class="border-bottom border-2 border-primary">
         <?= ucfirst($form) . ' ' . $title ?>
     </h2>
 
     <form action="<?= base_url('pedidos/' . $op); ?>" method="post">
 
-        <!-- SELECT DE CLIENTES -->
         <div class="mb-3">
             <label for="clientes_id" class="form-label">Cliente</label>
             <select class="form-select" name="clientes_id" id="clientes_id" required>
@@ -31,7 +39,6 @@ if(isset($_SESSION['login'])){
             </select>
         </div>
 
-        <!-- Data do Pedido -->
         <div class="mb-3">
             <label for="data_pedido" class="form-label">Data do Pedido</label>
             <input type="datetime-local" class="form-control" name="data_pedido"
@@ -39,7 +46,6 @@ if(isset($_SESSION['login'])){
                 id="data_pedido" required>
         </div>
 
-        <!-- Status -->
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
             <select class="form-select" name="status" id="status" required>
@@ -63,21 +69,18 @@ if(isset($_SESSION['login'])){
             </select>
         </div>
 
-        <!-- Total -->
         <div class="mb-3">
             <label for="total_pedido" class="form-label">Total do Pedido (R$)</label>
             <input type="number" step="0.01" class="form-control" name="total_pedido"
                 value="<?= $pedidos->total_pedido ?? ''; ?>" id="total_pedido" required>
         </div>
 
-        <!-- Observações -->
         <div class="mb-3">
             <label for="observacoes" class="form-label">Observações</label>
             <textarea class="form-control" name="observacoes" id="observacoes"
                 rows="4"><?= $pedidos->observacoes ?? ''; ?></textarea>
         </div>
 
-        <!-- ID oculto -->
         <input type="hidden" name="pedidos_id" value="<?= $pedidos->pedidos_id ?? ''; ?>">
 
         <div class="mb-3">
@@ -90,7 +93,7 @@ if(isset($_SESSION['login'])){
 
 <?= $this->endSection() ?>
 <?php
-    } elseif ($login->usuarios_nivel == 0) {
+    } elseif ($login->usuarios_nivel == 0) { // Se for cliente (0), mostra o formulário de criação de pedido
         ?>
 
 <?= $this->extend('Templates_user') ?>
@@ -101,17 +104,15 @@ if(isset($_SESSION['login'])){
         <?= ucfirst($form) . ' ' . $title ?>
     </h2>
 
-    <form action="<?= base_url('pedidos/'.$op); ?>" method="post">
+    <form action="<?= base_url('pedidos/' . $op); ?>" method="post">
 
         <input type="hidden" name="status" id="status" value="aguardando">
         <input type="hidden" name="pedidos_id" id="pedidos_id" value="<?= $pedidos->pedidos_id ?? '' ?>">
 
-        <!-- Lista de Produtos -->
         <div class="mb-3">
             <label for="produtos" class="form-label">Produtos</label>
             <div id="produtos-container">
 
-                <!-- Produto base para clonagem -->
                 <?php if (empty($itensPedido)): ?>
                 <div class="row mb-2 produto-item">
                     <div class="col-md-4">
@@ -142,7 +143,6 @@ if(isset($_SESSION['login'])){
                     </div>
                 </div>
                 <?php else: ?>
-                <!-- Repetição dos itens do pedido -->
                 <?php foreach ($itensPedido as $item): ?>
                 <div class="row mb-2 produto-item">
                     <div class="col-md-4">
@@ -181,19 +181,16 @@ if(isset($_SESSION['login'])){
             <button type="button" class="btn btn-secondary mt-2" id="add-produto">+ Produto</button>
         </div>
 
-        <!-- Total do Pedido -->
         <div class="mb-3">
             <label for="total_pedido" class="form-label">Total do Pedido (R$)</label>
             <input type="text" class="form-control" name="total_pedido" id="total_pedido" readonly required>
         </div>
 
-        <!-- Observações -->
         <div class="mb-3">
             <label for="observacoes" class="form-label">Observações (opcional)</label>
             <textarea class="form-control" name="observacoes" id="observacoes" rows="3"></textarea>
         </div>
 
-        <!-- Lista de Endereços -->
         <div class="mb-3">
             <label for="enderecos_id" class="form-label">Endereço de Entrega</label>
             <select class="form-select" name="enderecos_id" id="enderecos_id" required>
@@ -288,15 +285,14 @@ if(isset($_SESSION['login'])){
     <?= $this->endSection() ?>
 
     <?php
-
+    } else {
+        // Se não for nenhum dos níveis permitidos
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
     }
-    else{
-        $data['msg'] = msg("Sem permissão de acesso!","danger");
-        echo view('login',$data);
-    }
-}else{
-    $data['msg'] = msg("O usuário não está logado!","danger");
-    echo view('login',$data);
+} else {
+    // Se não estiver logado
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
 }
-
 ?>

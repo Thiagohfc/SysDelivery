@@ -1,13 +1,21 @@
 <?php
 helper('functions');
 session();
+
 if (isset($_SESSION['login'])) {
     $login = $_SESSION['login'];
-    if ($login->usuarios_nivel == 2) {
 
+    // CORREÇÃO: Permite o acesso para nível 2 (admin) e 1 (funcionário)
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto de acordo com o nível
+        if ($login->usuarios_nivel == 2) {
+            echo $this->extend('Templates_admin');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
         ?>
 
-<?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
 
 <div class="container pt-4 pb-5 bg-light">
@@ -17,7 +25,6 @@ if (isset($_SESSION['login'])) {
 
     <form action="<?= base_url('entregas/' . $op); ?>" method="post">
 
-        <!-- SELECT de Pedido -->
         <div class="mb-3">
             <label for="pedido_id" class="form-label">Pedido</label>
             <select class="form-select" name="pedido_id" id="pedido_id" required>
@@ -31,7 +38,6 @@ if (isset($_SESSION['login'])) {
             </select>
         </div>
 
-        <!-- SELECT de Funcionário -->
         <div class="mb-3">
             <label for="funcionario_id" class="form-label">Funcionário</label>
             <select class="form-select" name="funcionario_id" id="funcionario_id" required>
@@ -45,19 +51,15 @@ if (isset($_SESSION['login'])) {
             </select>
         </div>
 
-        <!-- Campo de Endereço Fixo -->
         <div class="mb-3">
             <label for="endereco_texto" class="form-label">Endereço</label>
             <input type="text" class="form-control" id="endereco_texto" value="-- Selecione um pedido --"
                 value="<?= isset($entrega->enderecos_rua) ? esc($entrega->enderecos_rua) : '' ?>" readonly>
 
-            <!-- Campo hidden com ID real do endereço -->
             <input type="hidden" name="endereco_id" id="endereco_id"
                 value="<?= isset($entrega->endereco_id) ? esc($entrega->endereco_id) : '' ?>">
         </div>
 
-
-        <!-- Status da entrega -->
         <div class="mb-3">
             <label for="status_entrega" class="form-label">Status da Entrega</label>
             <select class="form-select" name="status_entrega" id="status_entrega" required>
@@ -74,7 +76,6 @@ if (isset($_SESSION['login'])) {
             </select>
         </div>
 
-        <!-- ID oculto -->
         <input type="hidden" name="entregas_id"
             value="<?= isset($entrega->entregas_id) ? esc($entrega->entregas_id) : '' ?>">
 
@@ -128,18 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <?= $this->endSection() ?>
 
-
 <?php
+    } else {
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
     }
-    else{
-
-        $data['msg'] = msg("Sem permissão de acesso!","danger");
-        echo view('login',$data);
-    }
-}else{
-
-    $data['msg'] = msg("O usuário não está logado!","danger");
-    echo view('login',$data);
+} else {
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
 }
-
 ?>

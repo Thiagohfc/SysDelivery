@@ -1,20 +1,28 @@
 <?php
-    helper('functions');
-    session();
-     if(isset($_SESSION['login'])){
-         $login = $_SESSION['login'];
-         if($login->usuarios_nivel == 2){
-    
-?>
+helper('functions');
+session();
 
-<?= $this->extend('Templates_admin') ?>
+if (isset($_SESSION['login'])) {
+    $login = $_SESSION['login'];
+
+    if ($login->usuarios_nivel == 2) {
+        echo $this->extend('Templates_admin');
+    } elseif ($login->usuarios_nivel == 1) {
+        echo $this->extend('Templates_funcionario');
+    } else {
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
+        return;
+    }
+    ?>
+
 <?= $this->section('content') ?>
 
 <div class="container">
     <h2 class="border-bottom border-2 border-primary mt-5 pt-3 mb-4"> <?= $title ?> </h2>
 
     <?php if (isset($msg))
-        echo $msg; ?>
+            echo $msg; ?>
 
     <form action="<?= base_url('estoques/search'); ?>" class="d-flex mb-3" role="search" method="post">
         <input class="form-control me-2" name="pesquisar" type="search" placeholder="Pesquisar" aria-label="Search">
@@ -65,15 +73,8 @@
 <?= $this->endSection() ?>
 
 <?php
-    } else {
-
-        $data['msg'] = msg("Sem permissão de acesso!", "danger");
-        echo view('login', $data);
-    }
 } else {
-
     $data['msg'] = msg("O usuário não está logado!", "danger");
     echo view('login', $data);
 }
-
 ?>

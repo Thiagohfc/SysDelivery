@@ -1,21 +1,29 @@
 <?php
 helper('functions');
 session();
+
 if (isset($_SESSION['login'])) {
     $login = $_SESSION['login'];
-    if ($login->usuarios_nivel == 2) {
 
+    // CORREÇÃO: Permite o acesso para nível 2 (admin) e 1 (funcionário)
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto de acordo com o nível
+        if ($login->usuarios_nivel == 2) {
+            echo $this->extend('Templates_admin');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
         ?>
-<?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
 
 
 <div class="container pt-4 pb-5 bg-light">
     <h2 class="border-bottom border-2 border-primary">
-        <?= ucfirst($form).' '.$title ?>
+        <?= ucfirst($form) . ' ' . $title ?>
     </h2>
 
-    <form action="<?= base_url('produtos/'.$op); ?>" method="post">
+    <form action="<?= base_url('produtos/' . $op); ?>" method="post">
         <div class="mb-3">
             <label for="produtos_nome" class="form-label"> Produto </label>
             <input type="text" class="form-control" name="produtos_nome" value="<?= $produtos->produtos_nome; ?>"
@@ -44,13 +52,13 @@ if (isset($_SESSION['login'])) {
             <label for="produtos_categorias_id" class="form-label"> Categoria </label>
             <select class="form-control" name="produtos_categorias_id" id="produtos_categorias_id">
 
-                <?php 
-                    for($i=0; $i < count($categorias);$i++){ 
-                        $selected = '';
-                        if($categorias[$i]->categorias_id == $produtos->produtos_categorias_id){
-                            $selected = 'selected'; 
-                        }
-                    ?>
+                <?php
+                        for ($i = 0; $i < count($categorias); $i++) {
+                            $selected = '';
+                            if ($categorias[$i]->categorias_id == $produtos->produtos_categorias_id) {
+                                $selected = 'selected';
+                            }
+                            ?>
                 <option <?= $selected; ?> value="<?= $categorias[$i]->categorias_id; ?>">
                     <?= $categorias[$i]->categorias_nome; ?>
                 </option>
@@ -62,7 +70,7 @@ if (isset($_SESSION['login'])) {
         <input type="hidden" name="produtos_id" value="<?= $produtos->produtos_id; ?>">
 
         <div class="mb-3">
-            <button class="btn btn-success" type="submit"> <?= ucfirst($form)  ?> <i class="bi bi-floppy"></i></button>
+            <button class="btn btn-success" type="submit"> <?= ucfirst($form) ?> <i class="bi bi-floppy"></i></button>
         </div>
 
     </form>
@@ -71,16 +79,15 @@ if (isset($_SESSION['login'])) {
 
 <?= $this->endSection() ?>
 
-<?php 
-        }else{
-
-            $data['msg'] = msg("Sem permissão de acesso!","danger");
-            echo view('login',$data);
-        }
-    }else{
-
-        $data['msg'] = msg("O usuário não está logado!","danger");
-        echo view('login',$data);
+<?php
+    } else {
+        // Se não for nível 2 ou 1, o acesso é negado
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
     }
-
+} else {
+    // Se não estiver logado
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
+}
 ?>

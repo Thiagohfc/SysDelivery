@@ -1,13 +1,21 @@
 <?php
 helper('functions');
 session();
+
 if (isset($_SESSION['login'])) {
     $login = $_SESSION['login'];
+
     if ($login->usuarios_nivel == 2) {
+        echo $this->extend('Templates_admin');
+    } elseif ($login->usuarios_nivel == 1) {
+        echo $this->extend('Templates_funcionario');
+    } else {
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
+        return;
+    }
+    ?>
 
-        ?>
-
-<?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
 
 <div class="container">
@@ -31,14 +39,14 @@ if (isset($_SESSION['login'])) {
     </a>
 
     <?php
-    $formas_pagamento_legiveis = [
-        'dinheiro' => 'Dinheiro',
-        'cartao_credito' => 'Cartão de Crédito',
-        'cartao_debito' => 'Cartão de Débito',
-        'pix' => 'Pix',
-        'boleto' => 'Boleto'
-    ];
-    ?>
+        $formas_pagamento_legiveis = [
+            'dinheiro' => 'Dinheiro',
+            'cartao_credito' => 'Cartão de Crédito',
+            'cartao_debito' => 'Cartão de Débito',
+            'pix' => 'Pix',
+            'boleto' => 'Boleto'
+        ];
+        ?>
 
     <table class="table">
         <thead>
@@ -79,16 +87,9 @@ if (isset($_SESSION['login'])) {
 
 <?= $this->endSection() ?>
 
-<?php 
-        }else{
-
-            $data['msg'] = msg("Sem permissão de acesso!","danger");
-            echo view('login',$data);
-        }
-    }else{
-
-        $data['msg'] = msg("O usuário não está logado!","danger");
-        echo view('login',$data);
-    }
-
+<?php
+} else {
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
+}
 ?>

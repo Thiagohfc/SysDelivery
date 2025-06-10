@@ -1,13 +1,20 @@
-<!-- Tela com iformações do usuário logado e opções de edição e adição de endereço para envio de pedidos -->
 <?php
 helper('functions');
 session();
-if(isset($_SESSION['login'])){
-    $login = $_SESSION['login'];
-    if($login->usuarios_nivel == 0){
 
+if (isset($_SESSION['login'])) {
+    $login = $_SESSION['login'];
+
+    // CORREÇÃO: Permite o acesso para nível 0 (comum) e 1 (funcionário)
+    if ($login->usuarios_nivel == 0 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto de acordo com o nível
+        if ($login->usuarios_nivel == 0) {
+            echo $this->extend('Templates_user');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
         ?>
-<?= $this->extend('Templates_user') ?>
 <?= $this->section('content') ?>
 
 <div class="container mt-5">
@@ -42,7 +49,7 @@ if(isset($_SESSION['login'])){
             </div>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary" href="<?= base_url('usuarios/edit_senha/' . $usuario->usuarios_id);?>">
+            <a class="btn btn-primary" href="<?= base_url('usuarios/edit_senha/' . $usuario->usuarios_id); ?>">
                 <i class="bi bi-key"></i> Alterar Senha
             </a>
         </div>
@@ -82,14 +89,13 @@ if(isset($_SESSION['login'])){
 
     <?php
     } else {
-
+        // Se não for nível 0 ou 1, o acesso é negado
         $data['msg'] = msg("Sem permissão de acesso!", "danger");
         echo view('login', $data);
     }
 } else {
-
+    // Se não estiver logado
     $data['msg'] = msg("O usuário não está logado!", "danger");
     echo view('login', $data);
 }
-
 ?>

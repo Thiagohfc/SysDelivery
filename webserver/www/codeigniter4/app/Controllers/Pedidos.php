@@ -37,7 +37,7 @@ class Pedidos extends BaseController
 
         $cliente = $this->clientes->select('clientes_id')->where('clientes_usuario_id', $usuarioId)->first();
 
-        if($usuarioNivel == 2){
+        if ($usuarioNivel == 2 || $usuarioNivel == 1) {
             $data['title'] = 'Pedidos';
             $data['pedidos'] = $this->pedidos
                 ->join('clientes', 'clientes.clientes_id = pedidos.clientes_id')
@@ -65,7 +65,7 @@ class Pedidos extends BaseController
         $session = session();
         $usuarioId = $session->get('login')->usuarios_id;
         $usuarioNivel = $session->get('login')->usuarios_nivel;
-        if ($usuarioNivel == 2) {
+        if ($usuarioNivel == 2 || $usuarioNivel == 1) {
             $data['title'] = 'Novo Pedido';
             $data['op'] = 'create';
             $data['form'] = 'Cadastrar';
@@ -263,7 +263,7 @@ class Pedidos extends BaseController
     public function edit($id)
     {
         $nivel = session()->get('login')->usuarios_nivel;
-        if ($nivel == 2) {
+        if ($nivel == 2 || $nivel == 1) {
             $data['title'] = 'Pedido';
             $data['clientes'] = $this->clientes
                 ->join('usuarios', 'usuarios.usuarios_id = clientes.clientes_usuario_id')
@@ -356,8 +356,7 @@ class Pedidos extends BaseController
     public function update()
     {
         $nivel = session()->get('login')->usuarios_nivel;
-
-        if ($nivel == 2) {
+        if ($nivel == 2 || $nivel == 1) {
             // Administrador
             $id = $this->request->getPost('pedidos_id');
 

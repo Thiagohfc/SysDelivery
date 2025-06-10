@@ -16,7 +16,7 @@
 
                 <!-- Link Home-->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('admin') ?>">
+                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('/') ?>">
                         <i class="bi bi-house-fill"></i>
                         Home
                     </a>

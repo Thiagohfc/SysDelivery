@@ -1,13 +1,21 @@
 <?php
-    helper('functions');
-    session();
-     if(isset($_SESSION['login'])){
-         $login = $_SESSION['login'];
-         if($login->usuarios_nivel == 2){
-    
-?>
+helper('functions');
+session();
 
-<?= $this->extend('Templates_admin') ?>
+if (isset($_SESSION['login'])) {
+    $login = $_SESSION['login'];
+
+    // CORREÇÃO: Permite o acesso para nível 2 (admin) e 1 (funcionário)
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto de acordo com o nível
+        if ($login->usuarios_nivel == 2) {
+            echo $this->extend('Templates_admin');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
+        ?>
+
 <?= $this->section('content') ?>
 
 <div class="container pt-4 pb-5 bg-light">
@@ -17,7 +25,6 @@
 
     <form action="<?= base_url('itens_pedido/' . $op); ?>" method="post">
 
-        <!-- Pedido -->
         <div class="mb-3">
             <label for="pedidos_id" class="form-label">Pedido</label>
             <select class="form-select" name="pedidos_id" id="pedidos_id" required>
@@ -31,7 +38,6 @@
             </select>
         </div>
 
-        <!-- Produto -->
         <div class="mb-3">
             <label for="produtos_id" class="form-label">Produto</label>
             <select class="form-select" name="produtos_id" id="produtos_id" required>
@@ -46,25 +52,22 @@
             </select>
         </div>
 
-        <!-- Quantidade com botões -->
         <div class="mb-3">
             <label for="quantidade" class="form-label">Quantidade</label>
             <div class="input-group" style="max-width: 200px;">
                 <button type="button" class="btn btn-outline-secondary" onclick="alterarQuantidade(-1)">-</button>
                 <input type="number" class="form-control text-center" name="quantidade" id="quantidade" min="1"
-                    value="1" value="<?= $itens_pedido->quantidade ?? 1; ?>" required>
+                    value="<?= $itens_pedido->quantidade ?? 1; ?>" required>
                 <button type="button" class="btn btn-outline-secondary" onclick="alterarQuantidade(1)">+</button>
             </div>
         </div>
 
-        <!-- Preço Unitário (Calculado) -->
         <div class="mb-3">
             <label for="preco_unitario" class="form-label">Preço Final (R$)</label>
             <input type="number" step="0.01" class="form-control" name="preco_unitario" id="preco_unitario"
                 value="<?= $itens_pedido->preco_unitario ?? '0.00'; ?>" readonly required>
         </div>
 
-        <!-- ID oculto -->
         <input type="hidden" name="itens_pedido_id" value="<?= $itens_pedido->itens_pedido_id ?? ''; ?>">
 
         <div class="mb-3">
@@ -103,14 +106,11 @@ window.addEventListener('DOMContentLoaded', atualizarPreco);
 
 <?php
     } else {
-
         $data['msg'] = msg("Sem permissão de acesso!", "danger");
         echo view('login', $data);
     }
 } else {
-
     $data['msg'] = msg("O usuário não está logado!", "danger");
     echo view('login', $data);
 }
-
 ?>

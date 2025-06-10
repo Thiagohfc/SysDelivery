@@ -1,13 +1,21 @@
 <?php
-    helper('functions');
-    session();
-     if(isset($_SESSION['login'])){
-         $login = $_SESSION['login'];
-         if($login->usuarios_nivel == 2){
-    
-?>
+helper('functions');
+session();
 
-<?= $this->extend('Templates_admin') ?>
+if (isset($_SESSION['login'])) {
+    $login = $_SESSION['login'];
+
+    if ($login->usuarios_nivel == 2) {
+        echo $this->extend('Templates_admin');
+    } elseif ($login->usuarios_nivel == 1) {
+        echo $this->extend('Templates_funcionario');
+    } else {
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
+        return;
+    }
+    ?>
+
 <?= $this->section('content') ?>
 
 <div class="container mt-5">
@@ -37,16 +45,16 @@
     </a>
 
     <?php
-    $current_pedido_id = null;
-    $total_geral_pedidos = 0;
-    if (empty($itens_pedido)): ?>
+        $current_pedido_id = null;
+        $total_geral_pedidos = 0;
+        if (empty($itens_pedido)): ?>
     <div class="alert alert-info text-center" role="alert">
         Nenhum item de pedido encontrado.
     </div>
     <?php else:
-        foreach ($itens_pedido as $index => $item):
-            if ($item->pedidos_id !== $current_pedido_id):
-                if ($current_pedido_id !== null): ?>
+            foreach ($itens_pedido as $index => $item):
+                if ($item->pedidos_id !== $current_pedido_id):
+                    if ($current_pedido_id !== null): ?>
     </tbody>
     </table>
 </div>
@@ -55,9 +63,9 @@
 </div>
 </div>
 <?php endif;
-                $current_pedido_id = $item->pedidos_id;
-                $total_do_pedido_atual = 0;
-                ?>
+                    $current_pedido_id = $item->pedidos_id;
+                    $total_do_pedido_atual = 0;
+                    ?>
 <div class="card mb-4 shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Pedido ID: <?= esc($item->pedidos_id) ?></h4>
@@ -79,10 +87,10 @@
             <tbody>
                 <?php endif;
 
-            $subtotal_item = $item->produtos_preco_venda * $item->quantidade;
-            $total_do_pedido_atual += $subtotal_item;
-            $total_geral_pedidos += $subtotal_item;
-            ?>
+                $subtotal_item = $item->produtos_preco_venda * $item->quantidade;
+                $total_do_pedido_atual += $subtotal_item;
+                $total_geral_pedidos += $subtotal_item;
+                ?>
                 <tr>
                     <td>
                         <strong><?= esc($item->produto_nome ?? 'Produto não encontrado') ?></strong><br>
@@ -104,7 +112,7 @@
                     </td>
                 </tr>
                 <?php
-                        if ($index === array_key_last($itens_pedido)): ?>
+                            if ($index === array_key_last($itens_pedido)): ?>
             </tbody>
         </table>
     </div>
@@ -113,21 +121,15 @@
     </div>
 </div>
 <?php endif;
-        endforeach;
-    endif;
-    ?>
+            endforeach;
+        endif;
+        ?>
 </div>
 
 <?= $this->endSection() ?>
 
 <?php
-    } else {
-
-        $data['msg'] = msg("Sem permissão de acesso!", "danger");
-        echo view('login', $data);
-    }
 } else {
-
     $data['msg'] = msg("O usuário não está logado!", "danger");
     echo view('login', $data);
 }

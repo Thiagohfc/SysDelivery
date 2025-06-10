@@ -1,13 +1,21 @@
 <?php
 helper('functions');
 session();
-if(isset($_SESSION['login'])){
-    $login = $_SESSION['login'];
-    if($login->usuarios_nivel == 2){
 
+if (isset($_SESSION['login'])) {
+    $login = $_SESSION['login'];
+
+    // Se for admin (2) ou funcionário (1), mostra a tela de gerenciamento
+    if ($login->usuarios_nivel == 2 || $login->usuarios_nivel == 1) {
+
+        // Carrega o template correto para cada nível
+        if ($login->usuarios_nivel == 2) {
+            echo $this->extend('Templates_admin');
+        } else {
+            echo $this->extend('Templates_funcionario');
+        }
         ?>
 
-<?= $this->extend('Templates_admin') ?>
 <?= $this->section('content') ?>
 
 <div class="container">
@@ -69,7 +77,8 @@ if(isset($_SESSION['login'])){
 <?= $this->endSection() ?>
 
 <?php
-    }elseif($login->usuarios_nivel == 0){
+        // Se for cliente (0), mostra a visão do cliente
+    } elseif ($login->usuarios_nivel == 0) {
         ?>
 
 <?= $this->extend('Templates_user') ?>
@@ -98,10 +107,10 @@ if(isset($_SESSION['login'])){
     <?php
             $current_pedido_id = null;
             $total_geral_pedidos = 0;
-            $itensNaoConcluidos = array_filter($itensPedido, function($item) {
+            $itensNaoConcluidos = array_filter($itensPedido, function ($item) {
                 return strtolower($item->status) !== 'concluido';
             });
-            
+
             if (empty($itensNaoConcluidos)): ?>
     <div class="alert alert-info text-center" role="alert">
         Nenhum pedido encontrado.
@@ -110,7 +119,7 @@ if(isset($_SESSION['login'])){
                 $current_pedido_id = null;
                 $total_geral_pedidos = 0;
                 foreach ($itensPedido as $index => $item):
-            
+
                     if (strtolower($item->status) === 'concluido') {
                         if ($item->pedidos_id !== $current_pedido_id && $current_pedido_id !== null): ?>
     </tbody>
@@ -199,13 +208,14 @@ if(isset($_SESSION['login'])){
 <?= $this->endSection() ?>
 
 <?php
-    }else{
-        $data['msg'] = msg("Sem permissão de acesso!","danger");
-        echo view('login',$data);
+        // Se não for nenhum dos níveis permitidos
+    } else {
+        $data['msg'] = msg("Sem permissão de acesso!", "danger");
+        echo view('login', $data);
     }
-}else{
-    $data['msg'] = msg("O usuário não está logado!","danger");
-    echo view('login',$data);
+} else {
+    // Se não estiver logado
+    $data['msg'] = msg("O usuário não está logado!", "danger");
+    echo view('login', $data);
 }
-
 ?>
