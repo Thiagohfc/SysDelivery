@@ -91,7 +91,7 @@ class Usuarios extends BaseController
 
     public function delete($id)
     {
-        $nivel = session()->get('usuarios_nivel');
+        $nivel = session()->get('login')->usuarios_nivel;
         if ($nivel == 2){
             $this->usuarios->where('usuarios_id', (int) $id)->delete();
             $data['msg'] = msg('Deletado com Sucesso!','success');
@@ -144,14 +144,14 @@ class Usuarios extends BaseController
         ];
 
         $this->usuarios->update($_REQUEST['usuarios_id'], $dataForm);
-        if (session()->get('usuarios_nivel') == 2) {
+        if (session()->get('login')->usuarios_nivel == 2) {
             $data['msg'] = msg('Alterado com Sucesso!','success');
             $data['usuarios'] = $this->usuarios->find(['usuarios_id' => (int) $_REQUEST['usuarios_id']])[0];
             $data['title'] = 'Perfil';
             $data['form'] = 'Editar';
             $data['op'] = 'update';
             return view('usuarios/form', $data);
-        }elseif (session()->get('usuarios_nivel') == 0 || session()->get('usuarios_nivel') == 1) {
+        }elseif (session()->get('login')->usuarios_nivel == 0 || session()->get('login')->usuarios_nivel == 1) {
             return redirect()->to(base_url('usuarios/perfil/' . $_REQUEST['usuarios_id']));
         } else {
             $data['msg'] = msg('Houve um problema com o seu acesso. Procure a Gerência de TI!', 'danger');
@@ -185,6 +185,7 @@ class Usuarios extends BaseController
     }
 
     public function salvar_senha():string {
+        $nivel = session()->get('login')->usuarios_nivel;
 
         // Checks whether the submitted data passed the validation rules.
         if(!$this->validate([
@@ -225,16 +226,26 @@ class Usuarios extends BaseController
                     'usuarios_id' => $usuarioId,
                     'usuarios_senha' => md5($_REQUEST['usuarios_nova_senha'])
                 ];
-        
-                $this->usuarios->update($usuarioId, $dataForm);
-                $data['msg'] = msg('Senha alterada!','success');
-                $data['usuarios'] = $this->usuarios->findAll();
-                $data['title'] = 'Login';
-                session()->destroy();
-                $data['msg'] .= msg('Faça o login novamente!','warning');
-                session()->destroy();
-                return view('/login', $data);
-
+                
+                if($nivel == 2){
+                    $this->usuarios->update($usuarioId, $dataForm);
+                    $data['msg'] = msg('Senha alterada!','success');
+                    $data['title'] = 'Escolher Usuário';
+                    $data['usuarios'] = $this->usuarios->findAll();
+                    return view('usuarios/acessoADM', $data);
+                }elseif($nivel == 0){
+                    $this->usuarios->update($usuarioId, $dataForm);
+                    $data['msg'] = msg('Senha alterada!','success');
+                    $data['usuarios'] = $this->usuarios->findAll();
+                    $data['title'] = 'Login';
+                    $data['msg'] .= msg('Faça o login novamente!','warning');
+                    session()->destroy();
+                    return view('/login', $data);
+                }else{
+                    $data['msg'] = msg('Houve um problema com o seu acesso. Procure a Gerência de TI!','danger');
+                    session()->destroy();
+                    return view('/', $data);
+                }
 
             }else{
                 $data['title'] = 'Usuarios';
@@ -295,6 +306,14 @@ class Usuarios extends BaseController
         join('cidades', 'cidades.cidades_id = enderecos.enderecos_cidade_id')
         ->select('enderecos.*, cidades.*')->where('enderecos_usuario_id', (int) $usuarioId)->findAll();
         return view('usuarios/perfil', $data);
+    }
+
+    public function acess():string{
+        $data['nivel'] = 'olá';
+        $data['title'] = 'Escolher Usuário';
+        $data['usuarios'] = $this->usuarios->findAll();
+
+        return view('usuarios/acessoADM', $data);
     }
 
 }

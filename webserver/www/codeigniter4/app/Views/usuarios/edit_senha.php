@@ -28,19 +28,20 @@ if (isset($_SESSION['login'])) {
         <div class="mb-3">
             <label for="usuarios_nova_senha" class="form-label"> Nova Senha </label>
             <input type="password" class="form-control" name="usuarios_nova_senha"
-                value="<?= $usuarios->usuarios_nova_senha; ?>" id="usuarios_nova_senha">
+                value="<?= $usuarios->usuarios_nova_senha ?? '' ?>" id="usuarios_nova_senha">
         </div>
 
         <div class="mb-3">
             <label for="usuarios_confirmar_senha" class="form-label"> Confirma nova senha </label>
             <input type="password" class="form-control" name="usuarios_confirmar_senha"
-                value="<?= $usuarios->usuarios_confirmar_senha; ?>" id="usuarios_confirmar_senha">
+                value="<?= $usuarios->usuarios_confirmar_senha ?? '' ?>" id="usuarios_confirmar_senha">
         </div>
 
-        <input type="hidden" name="usuarios_id" value="<?= $login->usuarios_id; ?>">
+        <input type="hidden" name="usuarios_id" value="<?= $login->usuarios_id;?>">
 
         <div class="mb-3">
             <button class="btn btn-success" type="submit"> Alterar senha <i class="bi bi-floppy"></i></button>
+            <a class="btn btn-danger" href="<?= base_url('usuarios/acess') ?>">Cancelar</a>
         </div>
 
     </form>
@@ -60,6 +61,7 @@ if (isset($_SESSION['login'])) {
 <div class="container mt-5 pt-4 pb-5 bg-light">
 
     <?php if(isset($msg)){echo $msg;} ?>
+    <?php echo $nivel ?>
 
     <h2 class="border-bottom border-2 border-primary">
         Alterar Senha

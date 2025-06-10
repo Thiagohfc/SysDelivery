@@ -47,6 +47,7 @@ $routes->get('/usuarios/perfil/(:any)', 'Usuarios::perfil/$1');
 
 $routes->get('/usuarios/edit_senha/(:any)', 'Usuarios::edit_senha/$1');
 $routes->post('/usuarios/salvar_senha', 'Usuarios::salvar_senha');
+$routes->get('/usuarios/acess', 'Usuarios::acess');
 
 $routes->get('/usuarios/edit_nivel', 'Usuarios::edit_nivel');
 $routes->post('/usuarios/salvar_nivel', 'Usuarios::salvar_nivel');

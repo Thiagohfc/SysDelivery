@@ -56,7 +56,7 @@
 
                 <!-- Link Alterar Senha-->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url('usuarios/edit_senha') ?>">
+                    <a class="nav-link" href="<?php echo base_url('usuarios/acess') ?>">
                         <i class="bi bi-key"></i>
                         Alterar Senha
                     </a>
